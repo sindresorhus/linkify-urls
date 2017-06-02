@@ -6,14 +6,14 @@
 ## Install
 
 ```
-$ npm install linkify-urls
+$ npm install linkify-url
 ```
 
 
 ## Usage
 
 ```js
-const linkifyUrls = require('linkify-urls');
+const linkifyUrls = require('linkify-url');
 
 linkifyUrls('See https://sindresorhus.com', {
 	attributes: {
