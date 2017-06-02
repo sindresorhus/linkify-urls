@@ -1,0 +1,39 @@
+{
+  "name": "linkify-urls",
+  "version": "0.0.0",
+  "description": "Linkify URLs in text",
+  "license": "MIT",
+  "repository": "sindresorhus/linkify-urls",
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "test": "xo && ava"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "linkify",
+    "urls",
+    "url",
+    "link",
+    "reference",
+    "references",
+    "linkifies",
+    "href"
+  ],
+  "dependencies": {
+    "escape-goat": "^1.0.0",
+    "url-regex": "^4.0.0"
+  },
+  "devDependencies": {
+    "ava": "*",
+    "xo": "*"
+  }
+}
