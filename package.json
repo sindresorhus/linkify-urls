@@ -1,39 +1,39 @@
 {
-	"name": "linkify-url",
-	"version": "0.0.0",
-	"description": "Linkify URLs in text",
-	"license": "MIT",
-	"repository": "sindresorhus/linkify-url",
-	"author": {
-		"name": "Sindre Sorhus",
-		"email": "sindresorhus@gmail.com",
-		"url": "sindresorhus.com"
-	},
-	"engines": {
-		"node": ">=4"
-	},
-	"scripts": {
-		"test": "xo && ava"
-	},
-	"files": [
-		"index.js"
-	],
-	"keywords": [
-		"linkify",
-		"url",
-		"urls",
-		"link",
-		"reference",
-		"references",
-		"linkifies",
-		"href"
-	],
-	"dependencies": {
-		"escape-goat": "^1.0.0",
-		"url-regex": "^4.0.0"
-	},
-	"devDependencies": {
-		"ava": "*",
-		"xo": "*"
-	}
+  "name": "linkify-url",
+  "version": "1.0.0",
+  "description": "Linkify URLs in text",
+  "license": "MIT",
+  "repository": "sindresorhus/linkify-url",
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "test": "xo && ava"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "linkify",
+    "url",
+    "urls",
+    "link",
+    "reference",
+    "references",
+    "linkifies",
+    "href"
+  ],
+  "dependencies": {
+    "escape-goat": "^1.0.0",
+    "url-regex": "^4.0.0"
+  },
+  "devDependencies": {
+    "ava": "*",
+    "xo": "*"
+  }
 }
