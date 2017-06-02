@@ -49,6 +49,7 @@ HTML attributes to add to the link.
 
 - [url-regex](https://github.com/kevva/url-regex) - Regular expression for matching URLs
 - [linkify-issues](https://github.com/sindresorhus/linkify-issues) - Linkify GitHub issue references
+- [get-urls](https://github.com/sindresorhus/get-urls) - Get all URLs in text
 
 
 ## License
