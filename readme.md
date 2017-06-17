@@ -19,10 +19,11 @@ linkifyUrls('See https://sindresorhus.com', {
 	attributes: {
 		class: 'unicorn',
 		one: 1,
-		foo: true
+		foo: true,
+		multiple: ['a', 'b']
 	}
 });
-//=> 'See <a href="https://sindresorhus.com" class="unicorn" one="1" foo>https://sindresorhus.com</a>'
+//=> 'See <a href="https://sindresorhus.com" class="unicorn" one="1" foo multiple="a b">https://sindresorhus.com</a>'
 ```
 
 
