@@ -17,10 +17,12 @@ const linkifyUrls = require('linkify-urls');
 
 linkifyUrls('See https://sindresorhus.com', {
 	attributes: {
-		class: 'unicorn'
+		class: 'unicorn',
+		one: 1,
+		foo: true
 	}
 });
-//=> 'See <a href="https://sindresorhus.com" class="unicorn">https://sindresorhus.com</a>'
+//=> 'See <a href="https://sindresorhus.com" class="unicorn" one="1" foo>https://sindresorhus.com</a>'
 ```
 
 

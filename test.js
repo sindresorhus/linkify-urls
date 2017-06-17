@@ -22,3 +22,16 @@ test(t => {
 		'[![Build Status](<a href="https://travis-ci.org/sindresorhus/caprine.svg?branch=master">https://travis-ci.org/sindresorhus/caprine.svg?branch=master</a>)](<a href="https://travis-ci.org/sindresorhus/caprine">https://travis-ci.org/sindresorhus/caprine</a>)'
 	);
 });
+
+test('supports boolean and non-string attribute values', t => {
+	t.is(
+		m('https://sindresorhus.com', {
+			attributes: {
+				foo: true,
+				bar: false,
+				one: 1
+			}
+		}),
+		'<a href="https://sindresorhus.com" foo one="1">https://sindresorhus.com</a>'
+	);
+});

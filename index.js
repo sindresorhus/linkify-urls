@@ -11,8 +11,21 @@ module.exports = (input, options) => {
 
 	let attributes = Object.keys(options.attributes).map(key => {
 		const value = options.attributes[key];
-		return `${escapeGoat.escape(key)}="${escapeGoat.escape(value)}"`;
-	});
+
+		if (value === false) {
+			return null;
+		}
+
+		let ret = `${escapeGoat.escape(key)}`;
+
+		if (value === true) {
+			return ret;
+		}
+
+		ret += `="${escapeGoat.escape(String(value))}"`;
+
+		return ret;
+	}).filter(Boolean);
 	attributes = attributes.length > 0 ? ' ' + attributes.join(' ') : '';
 
 	return input.replace(urlRegex(), match => `<a href="${match}"${attributes}>${match}</a>`);
