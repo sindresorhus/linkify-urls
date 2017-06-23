@@ -1,4 +1,4 @@
-/* globals document, Text */
+/* globals document */
 
 'use strict';
 // - const urlRegex = require('url-regex');
@@ -28,7 +28,7 @@ const getAsDocumentFragment = (input, options) => {
 		if (index % 2) { // URLs are always in odd positions
 			frag.appendChild(domify(linkify(text, options)));
 		} else if (text.length > 0) {
-			frag.appendChild(new Text(text));
+			frag.appendChild(document.createTextNode(text));
 		}
 		return frag;
 	}, document.createDocumentFragment());
