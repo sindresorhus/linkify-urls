@@ -1,5 +1,28 @@
 import test from 'ava';
+import {JSDOM} from 'jsdom';
 import m from '.';
+
+const {
+	document,
+	Text
+} = new JSDOM().window;
+
+global.Text = Text;
+global.document = document;
+
+// Ponyfill until this is in:
+// https://github.com/tmpvar/jsdom/issues/317
+document.createRange = () => ({
+	createContextualFragment(html) {
+		const el = document.createElement('template');
+		el.innerHTML = html;
+		return el.content;
+	}
+});
+
+const domify = html => {
+	return document.createRange().createContextualFragment(html);
+};
 
 test(t => {
 	t.is(
@@ -33,5 +56,14 @@ test('supports boolean and non-string attribute values', t => {
 			}
 		}),
 		'<a href="https://sindresorhus.com" foo one="1">https://sindresorhus.com</a>'
+	);
+});
+
+test('type=dom support', t => {
+	t.deepEqual(
+		m('https://sindresorhus.com', {
+			type: 'dom'
+		}),
+		domify('<a href="https://sindresorhus.com">https://sindresorhus.com</a>')
 	);
 });
