@@ -16,17 +16,20 @@ document.createRange = () => ({
 	createContextualFragment(html) {
 		const el = document.createElement('template');
 		el.innerHTML = html;
-
-		// Work around jsdom implementation issues
-		const frag = document.createDocumentFragment();
-		frag.appendChild(el.content);
-
-		return frag;
+		return el.content;
 	}
 });
 
+// Get DOM node from HTML
 const domify = html => {
 	return document.createRange().createContextualFragment(html);
+};
+
+// Get HTML from DOM node
+const html = dom => {
+	const el = document.createElement('div');
+	el.appendChild(dom);
+	return el.innerHTML;
 };
 
 test(t => {
@@ -64,11 +67,29 @@ test('supports boolean and non-string attribute values', t => {
 	);
 });
 
-test('type=dom support', t => {
+test('DocumentFragment support', t => {
 	t.is(
-		m('https://sindresorhus.com', {
+		html(m('See https://sindresorhus.com and https://github.com/sindresorhus/got', {
 			type: 'dom'
-		}),
-		domify('<a href="https://sindresorhus.com">https://sindresorhus.com</a>')
+		})),
+		html(domify('See <a href="https://sindresorhus.com">https://sindresorhus.com</a> and <a href="https://github.com/sindresorhus/got">https://github.com/sindresorhus/got</a>'))
+	);
+
+	t.is(
+		html(m('See https://sindresorhus.com', {
+			type: 'dom',
+			attributes: {
+				class: 'unicorn',
+				target: '_blank'
+			}
+		})),
+		html(domify('See <a href="https://sindresorhus.com" class="unicorn" target="_blank">https://sindresorhus.com</a>'))
+	);
+
+	t.is(
+		html(m('[![Build Status](https://travis-ci.org/sindresorhus/caprine.svg?branch=master)](https://travis-ci.org/sindresorhus/caprine)', {
+			type: 'dom'
+		})),
+		html(domify('[![Build Status](<a href="https://travis-ci.org/sindresorhus/caprine.svg?branch=master">https://travis-ci.org/sindresorhus/caprine.svg?branch=master</a>)](<a href="https://travis-ci.org/sindresorhus/caprine">https://travis-ci.org/sindresorhus/caprine</a>)'))
 	);
 });
