@@ -16,7 +16,12 @@ document.createRange = () => ({
 	createContextualFragment(html) {
 		const el = document.createElement('template');
 		el.innerHTML = html;
-		return el.content;
+
+		// Work around jsdom implementation issues
+		const frag = document.createDocumentFragment();
+		frag.appendChild(el.content);
+
+		return frag;
 	}
 });
 
@@ -60,7 +65,7 @@ test('supports boolean and non-string attribute values', t => {
 });
 
 test('type=dom support', t => {
-	t.deepEqual(
+	t.is(
 		m('https://sindresorhus.com', {
 			type: 'dom'
 		}),
