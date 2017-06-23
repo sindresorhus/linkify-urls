@@ -1,13 +1,9 @@
 import test from 'ava';
-import {JSDOM} from 'jsdom';
+import {jsdom} from 'jsdom';
 import m from '.';
 
-const {
-	document,
-	Text
-} = new JSDOM().window;
+const document = jsdom();
 
-global.Text = Text;
 global.document = document;
 
 // Ponyfill until this is in:
