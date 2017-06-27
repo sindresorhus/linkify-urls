@@ -58,7 +58,7 @@ HTML attributes to add to the link.
 
 ##### type
 
-Type: `string`
+Type: `string`  
 Default: `'string'`
 
 Format of the generated content.
