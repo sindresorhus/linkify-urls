@@ -24,6 +24,15 @@ linkifyUrls('See https://sindresorhus.com', {
 	}
 });
 //=> 'See <a href="https://sindresorhus.com" class="unicorn" one="1" foo multiple="a b">https://sindresorhus.com</a>'
+
+
+const fragment = linkifyUrls('See https://sindresorhus.com', {
+	type: 'dom',
+	attributes: {
+		class: 'unicorn',
+	}
+});
+document.body.appendChild(fragment);
 ```
 
 
@@ -46,6 +55,17 @@ Type: `Object`
 Type: `Object`
 
 HTML attributes to add to the link.
+
+##### type
+
+Type: `string`
+Default: `'string'`
+
+Format of the generated content.
+
+`'string'` will return it as a flat string like `Visit <a href="http://example">http://example.com</a>`.
+
+`'dom'` will return it as a `DocumentFragment` ready to be appended in a DOM safely, like `DocumentFragment(TextNode('Visit '), HTMLAnchorElement('http://example.com'))`. This type only works in the browser.
 
 
 ## Related
