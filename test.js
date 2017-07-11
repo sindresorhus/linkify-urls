@@ -91,3 +91,9 @@ test('DocumentFragment support', t => {
 test('supports `@` in the URL path', t => {
 	t.is(m('https://sindresorhus.com/@foo'), '<a href="https://sindresorhus.com/@foo">https://sindresorhus.com/@foo</a>');
 });
+
+test('skips email addresses', t => {
+	t.is(m('sindre@example.com'), 'sindre@example.com');
+	t.is(m('www.sindre@example.com'), 'www.sindre@example.com');
+	t.is(m('sindre@www.example.com'), 'sindre@www.example.com');
+});
