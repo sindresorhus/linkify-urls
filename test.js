@@ -93,7 +93,7 @@ test('supports `@` in the URL path', t => {
 });
 
 test.failing('supports username in url', t => {
-    t.is(m('https://user@sindresorhus.com/@foo'), '<a href="https://user@sindresorhus.com/@foo">https://user@sindresorhus.com/@foo</a>');
+	t.is(m('https://user@sindresorhus.com/@foo'), '<a href="https://user@sindresorhus.com/@foo">https://user@sindresorhus.com/@foo</a>');
 });
 
 test('skips email addresses', t => {
