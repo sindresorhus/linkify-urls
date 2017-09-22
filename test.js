@@ -92,6 +92,11 @@ test('supports `@` in the URL path', t => {
 	t.is(m('https://sindresorhus.com/@foo'), '<a href="https://sindresorhus.com/@foo">https://sindresorhus.com/@foo</a>');
 });
 
+test.failing('skips Git URLs', t => {
+	const fixture = 'git+https://github.com/sindreorhus/ava';
+	t.is(m(fixture), fixture);
+});
+
 test('skips email addresses', t => {
 	t.is(m('sindre@example.com'), 'sindre@example.com');
 	t.is(m('www.sindre@example.com'), 'www.sindre@example.com');
