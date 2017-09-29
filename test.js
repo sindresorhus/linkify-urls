@@ -92,6 +92,13 @@ test('supports `@` in the URL path', t => {
 	t.is(m('https://sindresorhus.com/@foo'), '<a href="https://sindresorhus.com/@foo">https://sindresorhus.com/@foo</a>');
 });
 
+test('picks up `options.value` and sets it accordingly', t => {
+	t.is(m('See https://github.com/sindresorhus.com/linkify-urls for a solution', {
+		type: 'string',
+		value: 'here'
+	}), 'See <a href="https://github.com/sindresorhus.com/linkify-urls">here</a> for a solution');
+});
+
 test.failing('skips Git URLs', t => {
 	const fixture = 'git+https://github.com/sindreorhus/ava';
 	t.is(m(fixture), fixture);
