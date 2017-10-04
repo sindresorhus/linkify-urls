@@ -1,10 +1,10 @@
 import test from 'ava';
-import {jsdom} from 'jsdom';
+import jsdom from 'jsdom';
 import m from '.';
 
-const document = jsdom();
-
-global.document = document;
+const dom = new jsdom.JSDOM();
+global.window = dom.window;
+global.document = dom.window.document;
 
 // Ponyfill until this is in:
 // https://github.com/tmpvar/jsdom/issues/317
