@@ -1,5 +1,3 @@
-/* globals document */
-
 'use strict';
 // - const urlRegex = require('url-regex');
 const createHtmlElement = require('create-html-element');
