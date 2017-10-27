@@ -11,7 +11,7 @@ const urlRegex = () => (/((?:https?(?::\/\/))(?:www\.)?[a-zA-Z0-9-_.]+(?:\.[a-zA
 const linkify = (href, options) => createHtmlElement({
 	name: 'a',
 	attributes: Object.assign({href: ''}, options.attributes, {href}),
-	value: options.value || href
+	value: typeof options.value === 'undefined' ? href : options.value
 });
 
 // Get DOM node from HTML

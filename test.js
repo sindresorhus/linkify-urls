@@ -95,8 +95,8 @@ test('supports `@` in the URL path', t => {
 test('picks up `options.value` and sets it accordingly', t => {
 	t.is(m('See https://github.com/sindresorhus.com/linkify-urls for a solution', {
 		type: 'string',
-		value: 'here'
-	}), 'See <a href="https://github.com/sindresorhus.com/linkify-urls">here</a> for a solution');
+		value: 0
+	}), 'See <a href="https://github.com/sindresorhus.com/linkify-urls">0</a> for a solution');
 });
 
 test.failing('skips Git URLs', t => {
