@@ -1,5 +1,3 @@
-/* globals document */
-
 'use strict';
 // - const urlRegex = require('url-regex');
 const createHtmlElement = require('create-html-element');
@@ -11,7 +9,7 @@ const urlRegex = () => (/((?:https?(?::\/\/))(?:www\.)?[a-zA-Z0-9-_.]+(?:\.[a-zA
 const linkify = (href, options) => createHtmlElement({
 	name: 'a',
 	attributes: Object.assign({href: ''}, options.attributes, {href}),
-	value: href
+	value: typeof options.value === 'undefined' ? href : options.value
 });
 
 // Get DOM node from HTML

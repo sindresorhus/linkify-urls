@@ -1,10 +1,10 @@
 import test from 'ava';
-import {jsdom} from 'jsdom';
+import jsdom from 'jsdom';
 import m from '.';
 
-const document = jsdom();
-
-global.document = document;
+const dom = new jsdom.JSDOM();
+global.window = dom.window;
+global.document = dom.window.document;
 
 // Ponyfill until this is in:
 // https://github.com/tmpvar/jsdom/issues/317
@@ -90,6 +90,18 @@ test('DocumentFragment support', t => {
 
 test('supports `@` in the URL path', t => {
 	t.is(m('https://sindresorhus.com/@foo'), '<a href="https://sindresorhus.com/@foo">https://sindresorhus.com/@foo</a>');
+});
+
+test('supports `value` option', t => {
+	t.is(m('See https://github.com/sindresorhus.com/linkify-urls for a solution', {
+		type: 'string',
+		value: 0
+	}), 'See <a href="https://github.com/sindresorhus.com/linkify-urls">0</a> for a solution');
+});
+
+test.failing('skips Git URLs', t => {
+	const fixture = 'git+https://github.com/sindreorhus/ava';
+	t.is(m(fixture), fixture);
 });
 
 test.failing('supports username in url', t => {
