@@ -69,11 +69,12 @@ Format of the generated content.
 
 `dom` will return it as a `DocumentFragment` ready to be appended in a DOM safely, like `DocumentFragment(TextNode('Visit '), HTMLAnchorElement('https://example.com'))`. This type only works in the browser.
 
-##### value (optional)
+##### value
 
 Type: `string`<br>
+Default: The URL
 
-Set a custom HTML value for the link. If not set, it will default to `href`.
+Set a custom HTML value for the link.
 
 
 ## Related
