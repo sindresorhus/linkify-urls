@@ -104,6 +104,10 @@ test.failing('skips Git URLs', t => {
 	t.is(m(fixture), fixture);
 });
 
+test.failing('supports username in url', t => {
+	t.is(m('https://user@sindresorhus.com/@foo'), '<a href="https://user@sindresorhus.com/@foo">https://user@sindresorhus.com/@foo</a>');
+});
+
 test('skips email addresses', t => {
 	t.is(m('sindre@example.com'), 'sindre@example.com');
 	t.is(m('www.sindre@example.com'), 'www.sindre@example.com');
