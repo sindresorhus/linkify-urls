@@ -13,8 +13,10 @@
 		"node": ">=4"
 	},
 	"scripts": {
+		"build": "babel --out-dir lib index.js",
 		"test": "xo && ava"
 	},
+	"main": "lib/index.js",
 	"files": [
 		"index.js"
 	],
@@ -34,6 +36,7 @@
 	},
 	"devDependencies": {
 		"ava": "*",
+		"babel-cli": "^6.26.0",
 		"jsdom": "^11.3.0",
 		"xo": "*"
 	},
