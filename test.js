@@ -92,6 +92,10 @@ test('supports `@` in the URL path', t => {
 	t.is(m('https://sindresorhus.com/@foo'), '<a href="https://sindresorhus.com/@foo">https://sindresorhus.com/@foo</a>');
 });
 
+test('supports `,` in the URL path', t => {
+	t.is(m('https://sindresorhus.com/?id=foo,bar'), '<a href="https://sindresorhus.com/?id=foo,bar">https://sindresorhus.com/?id=foo,bar</a>');
+});
+
 test('supports `value` option', t => {
 	t.is(m('See https://github.com/sindresorhus.com/linkify-urls for a solution', {
 		type: 'string',

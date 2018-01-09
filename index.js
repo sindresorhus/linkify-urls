@@ -3,7 +3,7 @@
 const createHtmlElement = require('create-html-element');
 
 // Capture the whole URL in group 1 to keep string.split() support
-const urlRegex = () => (/((?:https?(?::\/\/))(?:www\.)?[a-zA-Z0-9-_.]+(?:\.[a-zA-Z0-9]{2,})(?:[-a-zA-Z0-9:%_+.~#?&//=@]*))/g);
+const urlRegex = () => (/((?:https?(?::\/\/))(?:www\.)?[a-zA-Z0-9-_.]+(?:\.[a-zA-Z0-9]{2,})(?:[-a-zA-Z0-9:%_+.~#?&//=@,]*))/g);
 
 // Get <a> element as string
 const linkify = (href, options) => createHtmlElement({
