@@ -1,6 +1,6 @@
 {
 	"name": "linkify-urls",
-	"version": "1.4.0",
+	"version": "1.5.0",
 	"description": "Linkify URLs in text",
 	"license": "MIT",
 	"repository": "sindresorhus/linkify-urls",
