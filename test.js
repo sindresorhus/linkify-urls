@@ -92,7 +92,7 @@ test('supports `@` in the URL path', t => {
 	t.is(m('https://sindresorhus.com/@foo'), '<a href="https://sindresorhus.com/@foo">https://sindresorhus.com/@foo</a>');
 });
 
-test.failing('supports `#!` in the URL path', t => {
+test('supports `#!` in the URL path', t => {
 	t.is(m('https://twitter.com/#!/sindresorhus'), '<a href="https://twitter.com/#!/sindresorhus">https://twitter.com/#!/sindresorhus</a>');
 });
 
