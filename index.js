@@ -1,6 +1,7 @@
 'use strict';
 // - const urlRegex = require('url-regex');
 const createHtmlElement = require('create-html-element');
+const {escape} = require('escape-goat');
 
 // Capture the whole URL in group 1 to keep string.split() support
 const urlRegex = () => (/((?:https?(?::\/\/))(?:www\.)?[a-zA-Z\d-_.]+(?:\.[a-zA-Z\d]{2,})(?:(?:[-a-zA-Z\d:%_+.~#!?&//=@]*)(?:[,](?![\s]))*)*)/g);
@@ -9,7 +10,7 @@ const urlRegex = () => (/((?:https?(?::\/\/))(?:www\.)?[a-zA-Z\d-_.]+(?:\.[a-zA-
 const linkify = (href, options) => createHtmlElement({
 	name: 'a',
 	attributes: Object.assign({href: ''}, options.attributes, {href}),
-	value: typeof options.value === 'undefined' ? href : options.value
+	value: typeof options.value === 'undefined' ? escape(href) : options.value
 });
 
 // Get DOM node from HTML
