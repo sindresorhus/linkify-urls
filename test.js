@@ -88,6 +88,10 @@ test('DocumentFragment support', t => {
 	);
 });
 
+test('escapes the URL', t => {
+	t.is(m('http://mysite.com/?emp=1&amp=2'), '<a href="http://mysite.com/?emp=1&amp;amp=2">http://mysite.com/?emp=1&amp;amp=2</a>');
+});
+
 test('supports `@` in the URL path', t => {
 	t.is(m('https://sindresorhus.com/@foo'), '<a href="https://sindresorhus.com/@foo">https://sindresorhus.com/@foo</a>');
 });

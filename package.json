@@ -29,7 +29,7 @@
 		"href"
 	],
 	"dependencies": {
-		"create-html-element": "^1.0.0",
+		"create-html-element": "^2.0.0",
 		"url-regex": "^4.0.0"
 	},
 	"devDependencies": {
