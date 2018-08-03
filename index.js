@@ -10,7 +10,8 @@ const linkify = (href, options) => createHtmlElement({
 	name: 'a',
 	attributes: Object.assign({href: ''}, options.attributes, {href}),
 	text: typeof options.value === 'undefined' ? href : undefined,
-	html: typeof options.value === 'undefined' ? undefined : options.value
+	html: typeof options.value === 'undefined' ? undefined :
+		typeof options.value === 'function' ? options.value(href) : options.value
 });
 
 // Get DOM node from HTML

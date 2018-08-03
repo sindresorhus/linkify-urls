@@ -71,10 +71,10 @@ Format of the generated content.
 
 ##### value
 
-Type: `string`<br>
+Type: `string` or `function`<br>
 Default: The URL
 
-Set a custom HTML value for the link.
+Set a custom HTML value for the link. Use a function with the passed `href` to make the value dynamic.
 
 
 ## Related
