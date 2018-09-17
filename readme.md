@@ -71,10 +71,19 @@ Format of the generated content.
 
 ##### value
 
-Type: `string` or `function`<br>
+Type: `string` `Function`<br>
 Default: The URL
 
-Set a custom HTML value for the link. Use a function with the passed `href` to make the value dynamic.
+Set a custom HTML value for the link.
+
+If it's a function, it will receive the URL as a string:
+
+```js
+linkifyUrls('See https://sindresorhus.com/foo', {
+	value: url => new URL(url).pathname
+});
+//=> 'See <a href="https://sindresorhus.com/foo">/foo</a>'
+```
 
 
 ## Related
