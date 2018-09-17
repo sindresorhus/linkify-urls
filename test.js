@@ -1,4 +1,4 @@
-import url from 'url';
+import {URL} from 'url';
 import test from 'ava';
 import jsdom from 'jsdom';
 import m from '.';
@@ -113,9 +113,9 @@ test('supports `value` option', t => {
 	}), 'See <a href="https://github.com/sindresorhus.com/linkify-urls">0</a> for a solution');
 });
 
-test('supports `value` as function option', t => {
+test('supports `value` option as function', t => {
 	t.is(m('See https://github.com/sindresorhus.com/linkify-urls for a solution', {
-		value: href => url.parse(href).hostname
+		value: url => new URL(url).hostname
 	}), 'See <a href="https://github.com/sindresorhus.com/linkify-urls">github.com</a> for a solution');
 });
 

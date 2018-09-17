@@ -1,5 +1,4 @@
 'use strict';
-// - const urlRegex = require('url-regex');
 const createHtmlElement = require('create-html-element');
 
 // Capture the whole URL in group 1 to keep string.split() support
@@ -47,5 +46,5 @@ module.exports = (input, options) => {
 		return getAsDocumentFragment(input, options);
 	}
 
-	throw new Error('The type option must be either dom or string');
+	throw new Error('The type option must be either `dom` or `string`');
 };
