@@ -1,3 +1,4 @@
+import url from 'url';
 import test from 'ava';
 import jsdom from 'jsdom';
 import m from '.';
@@ -110,6 +111,12 @@ test('supports `value` option', t => {
 		type: 'string',
 		value: 0
 	}), 'See <a href="https://github.com/sindresorhus.com/linkify-urls">0</a> for a solution');
+});
+
+test('supports `value` as function option', t => {
+	t.is(m('See https://github.com/sindresorhus.com/linkify-urls for a solution', {
+		value: href => url.parse(href).hostname
+	}), 'See <a href="https://github.com/sindresorhus.com/linkify-urls">github.com</a> for a solution');
 });
 
 test.failing('skips Git URLs', t => {
