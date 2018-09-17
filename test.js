@@ -113,7 +113,7 @@ test('supports `value` option', t => {
 });
 
 test.failing('skips Git URLs', t => {
-	const fixture = 'git+https://github.com/sindreorhus/ava';
+	const fixture = 'git+https://github.com/sindresorhus/ava';
 	t.is(m(fixture), fixture);
 });
 
@@ -125,4 +125,9 @@ test('skips email addresses', t => {
 	t.is(m('sindre@example.com'), 'sindre@example.com');
 	t.is(m('www.sindre@example.com'), 'www.sindre@example.com');
 	t.is(m('sindre@www.example.com'), 'sindre@www.example.com');
+});
+
+test('supports localhost URLs', t => {
+	t.is(m('http://localhost'), '<a href="http://localhost">http://localhost</a>');
+	t.is(m('http://localhost/foo/bar'), '<a href="http://localhost/foo/bar">http://localhost/foo/bar</a>');
 });
