@@ -119,7 +119,7 @@ test('supports `value` option as function', t => {
 	}), 'See <a href="https://github.com/sindresorhus.com/linkify-urls">github.com</a> for a solution');
 });
 
-test.failing('skips Git URLs', t => {
+test('skips Git URLs', t => {
 	const fixture = 'git+https://github.com/sindresorhus/ava';
 	t.is(m(fixture), fixture);
 });
