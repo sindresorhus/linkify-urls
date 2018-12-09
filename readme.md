@@ -85,11 +85,10 @@ linkifyUrls('See https://sindresorhus.com/foo', {
 //=> 'See <a href="https://sindresorhus.com/foo">/foo</a>'
 ```
 
-## Compatibility note
 
-Since v2.2.0, the main regular expression is using a negative look-behind to address [#7](https://github.com/sindresorhus/linkify-urls/issues/7).
-Look-behind assertions [should be compatible since Node v6](https://node.green/#ES2018-features--RegExp-Lookbehind-Assertions) (with the use of `--harmony` flag).
-At the time of this note, only Google Chrome seems to support it, even though it [will eventually be a standard](https://tc39.github.io/ecma262/).
+## Browser compatibility
+
+Version 3 of this package uses [negative lookbehind regex syntax](http://kangax.github.io/compat-table/es2016plus/#test-RegExp_Lookbehind_Assertions). Stay on version 2 if you need to support browsers that doesn't support this feature.
 
 
 ## Related

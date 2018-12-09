@@ -1,13 +1,17 @@
 'use strict';
 const createHtmlElement = require('create-html-element');
 
-// Capture the whole URL in group 1 to keep string.split() support
+// Capture the whole URL in group 1 to keep `String#split()` support
 const urlRegex = () => (/((?<!\+)(?:https?(?::\/\/))(?:www\.)?(?:[a-zA-Z\d-_.]+(?:(?:\.|@)[a-zA-Z\d]{2,})|localhost)(?:(?:[-a-zA-Z\d:%_+.~#!?&//=@]*)(?:[,](?![\s]))*)*)/g);
 
-// Get <a> element as string
+// Get `<a>` element as string
 const linkify = (href, options) => createHtmlElement({
 	name: 'a',
-	attributes: Object.assign({href: ''}, options.attributes, {href}),
+	attributes: {
+		href: '',
+		...options.attributes,
+		href // eslint-disable-line no-dupe-keys
+	},
 	text: typeof options.value === 'undefined' ? href : undefined,
 	html: typeof options.value === 'undefined' ? undefined :
 		(typeof options.value === 'function' ? options.value(href) : options.value)
@@ -21,22 +25,23 @@ const getAsString = (input, options) => {
 };
 
 const getAsDocumentFragment = (input, options) => {
-	return input.split(urlRegex()).reduce((frag, text, index) => {
+	return input.split(urlRegex()).reduce((fragment, text, index) => {
 		if (index % 2) { // URLs are always in odd positions
-			frag.appendChild(domify(linkify(text, options)));
+			fragment.appendChild(domify(linkify(text, options)));
 		} else if (text.length > 0) {
-			frag.appendChild(document.createTextNode(text));
+			fragment.appendChild(document.createTextNode(text));
 		}
 
-		return frag;
+		return fragment;
 	}, document.createDocumentFragment());
 };
 
 module.exports = (input, options) => {
-	options = Object.assign({
+	options = {
 		attributes: {},
-		type: 'string'
-	}, options);
+		type: 'string',
+		...options
+	};
 
 	if (options.type === 'string') {
 		return getAsString(input, options);
