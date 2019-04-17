@@ -39,9 +39,9 @@ document.body.appendChild(fragment);
 
 ## API
 
-### linkifyUrls(input, [options])
+### linkifyUrls(text, [options])
 
-#### input
+#### text
 
 Type: `string`
 
@@ -49,25 +49,25 @@ Text with URLs to linkify.
 
 #### options
 
-Type: `Object`
+Type: `object`
 
 ##### attributes
 
-Type: `Object`
+Type: `object`
 
 HTML attributes to add to the link.
 
 ##### type
 
 Type: `string`<br>
-Values: `string` `dom`<br>
-Default: `string`
+Values: `'string'` `'dom'`<br>
+Default: `'string'`
 
 Format of the generated content.
 
-`string` will return it as a flat string like `'Visit <a href="https://example.com">https://example.com</a>'`.
+`'string'` will return it as a flat string like `'Visit <a href="https://example.com">https://example.com</a>'`.
 
-`dom` will return it as a `DocumentFragment` ready to be appended in a DOM safely, like `DocumentFragment(TextNode('Visit '), HTMLAnchorElement('https://example.com'))`. This type only works in the browser.
+`'dom'` will return it as a `DocumentFragment` ready to be appended in a DOM safely, like `DocumentFragment(TextNode('Visit '), HTMLAnchorElement('https://example.com'))`. This type only works in the browser.
 
 ##### value
 
