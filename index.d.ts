@@ -6,7 +6,7 @@ declare namespace linkifyUrls {
 		HTML attributes to add to the link.
 		*/
 		readonly attributes?: {
-			[attributeName: string]: string | number | boolean | ReadonlyArray<string>;
+			[attributeName: string]: string | number | boolean | readonly string[];
 		};
 
 		/**
@@ -19,7 +19,9 @@ declare namespace linkifyUrls {
 		readonly type?: 'string' | 'dom';
 
 		/**
-		Set a custom HTML value for the link. Default: The URL.
+		Set a custom HTML value for the link.
+
+		Default: The URL.
 
 		@example
 		```
@@ -39,9 +41,9 @@ declare namespace linkifyUrls {
 }
 
 /**
-Linkify URLs in text.
+Linkify URLs in a string.
 
-@param text - Text with URLs to linkify.
+@param string - String with URLs to linkify.
 
 @example
 ```
@@ -69,11 +71,11 @@ document.body.appendChild(fragment);
 ```
 */
 declare function linkifyUrls(
-	text: string,
+	string: string,
 	options: linkifyUrls.TypeDomOptions
 ): DocumentFragment;
 declare function linkifyUrls(
-	text: string,
+	string: string,
 	options?: linkifyUrls.Options
 ): string;
 

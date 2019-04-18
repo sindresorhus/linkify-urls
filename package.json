@@ -1,7 +1,7 @@
 {
 	"name": "linkify-urls",
 	"version": "3.0.0",
-	"description": "Linkify URLs in text",
+	"description": "Linkify URLs in a string",
 	"license": "MIT",
 	"repository": "sindresorhus/linkify-urls",
 	"author": {
@@ -27,7 +27,10 @@
 		"reference",
 		"references",
 		"linkifies",
-		"href"
+		"href",
+		"string",
+		"text",
+		"dom"
 	],
 	"dependencies": {
 		"create-html-element": "^2.1.0"

@@ -20,12 +20,12 @@ const linkify = (href, options) => createHtmlElement({
 // Get DOM node from HTML
 const domify = html => document.createRange().createContextualFragment(html);
 
-const getAsString = (input, options) => {
-	return input.replace(urlRegex(), match => linkify(match, options));
+const getAsString = (string, options) => {
+	return string.replace(urlRegex(), match => linkify(match, options));
 };
 
-const getAsDocumentFragment = (input, options) => {
-	return input.split(urlRegex()).reduce((fragment, text, index) => {
+const getAsDocumentFragment = (string, options) => {
+	return string.split(urlRegex()).reduce((fragment, text, index) => {
 		if (index % 2) { // URLs are always in odd positions
 			fragment.append(domify(linkify(text, options)));
 		} else if (text.length > 0) {
@@ -36,7 +36,7 @@ const getAsDocumentFragment = (input, options) => {
 	}, document.createDocumentFragment());
 };
 
-module.exports = (input, options) => {
+module.exports = (string, options) => {
 	options = {
 		attributes: {},
 		type: 'string',
@@ -44,11 +44,11 @@ module.exports = (input, options) => {
 	};
 
 	if (options.type === 'string') {
-		return getAsString(input, options);
+		return getAsString(string, options);
 	}
 
 	if (options.type === 'dom') {
-		return getAsDocumentFragment(input, options);
+		return getAsDocumentFragment(string, options);
 	}
 
 	throw new Error('The type option must be either `dom` or `string`');

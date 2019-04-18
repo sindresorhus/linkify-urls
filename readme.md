@@ -1,6 +1,6 @@
 # linkify-urls [![Build Status](https://travis-ci.org/sindresorhus/linkify-urls.svg?branch=master)](https://travis-ci.org/sindresorhus/linkify-urls)
 
-> Linkify URLs in text
+> Linkify URLs in a string
 
 
 ## Install
@@ -39,13 +39,13 @@ document.body.appendChild(fragment);
 
 ## API
 
-### linkifyUrls(text, [options])
+### linkifyUrls(string, [options])
 
-#### text
+#### string
 
 Type: `string`
 
-Text with URLs to linkify.
+String with URLs to linkify.
 
 #### options
 
@@ -71,7 +71,7 @@ Format of the generated content.
 
 ##### value
 
-Type: `string` `Function`<br>
+Type: `string | Function`<br>
 Default: The URL
 
 Set a custom HTML value for the link.
@@ -95,7 +95,7 @@ Version 3 of this package uses [negative lookbehind regex syntax](http://kangax.
 
 - [url-regex](https://github.com/kevva/url-regex) - Regular expression for matching URLs
 - [linkify-issues](https://github.com/sindresorhus/linkify-issues) - Linkify GitHub issue references
-- [get-urls](https://github.com/sindresorhus/get-urls) - Get all URLs in text
+- [get-urls](https://github.com/sindresorhus/get-urls) - Get all URLs in a string
 
 
 ## License
