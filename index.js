@@ -27,9 +27,9 @@ const getAsString = (input, options) => {
 const getAsDocumentFragment = (input, options) => {
 	return input.split(urlRegex()).reduce((fragment, text, index) => {
 		if (index % 2) { // URLs are always in odd positions
-			fragment.appendChild(domify(linkify(text, options)));
+			fragment.append(domify(linkify(text, options)));
 		} else if (text.length > 0) {
-			fragment.appendChild(document.createTextNode(text));
+			fragment.append(document.createTextNode(text));
 		}
 
 		return fragment;

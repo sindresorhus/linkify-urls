@@ -23,7 +23,7 @@ const domify = html => document.createRange().createContextualFragment(html);
 // Get HTML from DOM node
 const html = dom => {
 	const el = document.createElement('div');
-	el.appendChild(dom);
+	el.append(dom);
 	return el.innerHTML;
 };
 

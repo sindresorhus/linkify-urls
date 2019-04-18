@@ -13,10 +13,11 @@
 		"node": ">=8"
 	},
 	"scripts": {
-		"test": "xo && ava"
+		"test": "xo && ava && tsd"
 	},
 	"files": [
-		"index.js"
+		"index.js",
+		"index.d.ts"
 	],
 	"keywords": [
 		"linkify",
@@ -29,12 +30,13 @@
 		"href"
 	],
 	"dependencies": {
-		"create-html-element": "^2.0.0"
+		"create-html-element": "^2.1.0"
 	},
 	"devDependencies": {
-		"ava": "^0.25.0",
-		"jsdom": "^13.0.0",
-		"xo": "^0.23.0"
+		"ava": "^1.4.1",
+		"jsdom": "^14.0.0",
+		"tsd": "^0.7.2",
+		"xo": "^0.24.0"
 	},
 	"xo": {
 		"envs": [
