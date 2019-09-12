@@ -36,11 +36,21 @@ const getAsDocumentFragment = (string, options) => {
 	}, document.createDocumentFragment());
 };
 
-module.exports = (string, options) => {
+module.exports = (string, options = {}) => {
+	const defaultOptions = {
+		attributes: {
+			rel: 'noreferrer'
+		},
+		type: 'string'
+	};
+
 	options = {
-		attributes: {},
-		type: 'string',
-		...options
+		...defaultOptions,
+		...options,
+		attributes: {
+			...defaultOptions.attributes,
+			...options.attributes
+		}
 	};
 
 	if (options.type === 'string') {
