@@ -12,7 +12,7 @@ declare namespace linkifyUrls {
 		/**
 		Format of the generated content.
 
-		`'string'` will return it as a flat string like `'Visit <a href="https://example.com">https://example.com</a>'`.
+		`'string'` will return it as a flat string like `'Visit <a href="https://example.com" rel="noreferrer">https://example.com</a>'`.
 
 		`'dom'` will return it as a `DocumentFragment` ready to be appended in a DOM safely, like `DocumentFragment(TextNode('Visit '), HTMLAnchorElement('https://example.com'))`. This type only works in the browser.
 		*/
@@ -28,7 +28,7 @@ declare namespace linkifyUrls {
 		linkifyUrls('See https://sindresorhus.com/foo', {
 			value: url => new URL(url).pathname
 		});
-		//=> 'See <a href="https://sindresorhus.com/foo">/foo</a>'
+		//=> 'See <a href="https://sindresorhus.com/foo" rel="noreferrer">/foo</a>'
 		```
 		*/
 		readonly value?: string | ((url: string) => string);
@@ -57,7 +57,7 @@ linkifyUrls('See https://sindresorhus.com', {
 		multiple: ['a', 'b']
 	}
 });
-//=> 'See <a href="https://sindresorhus.com" class="unicorn" one="1" foo multiple="a b">https://sindresorhus.com</a>'
+//=> 'See <a href="https://sindresorhus.com" rel="noreferrer" class="unicorn" one="1" foo multiple="a b">https://sindresorhus.com</a>'
 
 
 // In the browser

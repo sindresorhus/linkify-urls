@@ -23,7 +23,7 @@ linkifyUrls('See https://sindresorhus.com', {
 		multiple: ['a', 'b']
 	}
 });
-//=> 'See <a href="https://sindresorhus.com" class="unicorn" one="1" foo multiple="a b">https://sindresorhus.com</a>'
+//=> 'See <a href="https://sindresorhus.com" rel="noreferrer" class="unicorn" one="1" foo multiple="a b">https://sindresorhus.com</a>'
 
 
 // In the browser
@@ -56,6 +56,7 @@ Type: `object`
 Type: `object`
 
 HTML attributes to add to the link.
+By default there is the `rel="noreferrer"` based on [Google Lighthouse Audits](https://developers.google.com/web/tools/lighthouse/audits/noopener) this should be the default for cross-origin destinations.
 
 ##### type
 
