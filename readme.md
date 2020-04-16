@@ -1,14 +1,12 @@
-# linkify-urls [![Build Status](https://travis-ci.org/sindresorhus/linkify-urls.svg?branch=master)](https://travis-ci.org/sindresorhus/linkify-urls)
+# linkify-urls [![Build Status](https://travis-ci.com/sindresorhus/linkify-urls.svg?branch=master)](https://travis-ci.com/sindresorhus/linkify-urls)
 
 > Linkify URLs in a string
-
 
 ## Install
 
 ```
 $ npm install linkify-urls
 ```
-
 
 ## Usage
 
@@ -36,10 +34,9 @@ const fragment = linkifyUrls('See https://sindresorhus.com', {
 document.body.appendChild(fragment);
 ```
 
-
 ## API
 
-### linkifyUrls(string, [options])
+### linkifyUrls(string, options?)
 
 #### string
 
@@ -59,8 +56,8 @@ HTML attributes to add to the link.
 
 ##### type
 
-Type: `string`<br>
-Values: `'string'` `'dom'`<br>
+Type: `string`\
+Values: `'string' | 'dom'`\
 Default: `'string'`
 
 Format of the generated content.
@@ -71,7 +68,7 @@ Format of the generated content.
 
 ##### value
 
-Type: `string | Function`<br>
+Type: `string | Function`\
 Default: The URL
 
 Set a custom HTML value for the link.
@@ -85,19 +82,12 @@ linkifyUrls('See https://sindresorhus.com/foo', {
 //=> 'See <a href="https://sindresorhus.com/foo">/foo</a>'
 ```
 
-
 ## Browser compatibility
 
-Version 3 of this package uses [negative lookbehind regex syntax](http://kangax.github.io/compat-table/es2016plus/#test-RegExp_Lookbehind_Assertions). Stay on version 2 if you need to support browsers that doesn't support this feature.
-
+Version 3 of this package uses [negative lookbehind regex syntax](https://kangax.github.io/compat-table/es2016plus/#test-RegExp_Lookbehind_Assertions). Stay on version 2 if you need to support browsers that doesn't support this feature.
 
 ## Related
 
 - [url-regex](https://github.com/kevva/url-regex) - Regular expression for matching URLs
 - [linkify-issues](https://github.com/sindresorhus/linkify-issues) - Linkify GitHub issue references
 - [get-urls](https://github.com/sindresorhus/get-urls) - Get all URLs in a string
-
-
-## License
-
-MIT © [Sindre Sorhus](https://sindresorhus.com)

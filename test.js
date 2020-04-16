@@ -90,7 +90,7 @@ test('DocumentFragment support', t => {
 });
 
 test('escapes the URL', t => {
-	t.is(linkifyUrls('http://mysite.com/?emp=1&amp=2'), '<a href="http://mysite.com/?emp=1&amp;amp=2">http://mysite.com/?emp=1&amp;amp=2</a>');
+	t.is(linkifyUrls('https://mysite.com/?emp=1&amp=2'), '<a href="https://mysite.com/?emp=1&amp;amp=2">https://mysite.com/?emp=1&amp;amp=2</a>');
 });
 
 test('supports `@` in the URL path', t => {
@@ -129,7 +129,7 @@ test('supports username in url', t => {
 });
 
 test('supports a URL with a subdomain', t => {
-	t.is(linkifyUrls('http://docs.google.com'), '<a href="http://docs.google.com">http://docs.google.com</a>');
+	t.is(linkifyUrls('https://docs.google.com'), '<a href="https://docs.google.com">https://docs.google.com</a>');
 });
 
 test('skips email addresses', t => {
@@ -139,6 +139,6 @@ test('skips email addresses', t => {
 });
 
 test('supports localhost URLs', t => {
-	t.is(linkifyUrls('http://localhost'), '<a href="http://localhost">http://localhost</a>');
-	t.is(linkifyUrls('http://localhost/foo/bar'), '<a href="http://localhost/foo/bar">http://localhost/foo/bar</a>');
+	t.is(linkifyUrls('https://localhost'), '<a href="https://localhost">https://localhost</a>');
+	t.is(linkifyUrls('https://localhost/foo/bar'), '<a href="https://localhost/foo/bar">https://localhost/foo/bar</a>');
 });
