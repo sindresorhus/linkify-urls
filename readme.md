@@ -1,4 +1,4 @@
-# linkify-urls [![Build Status](https://travis-ci.com/sindresorhus/linkify-urls.svg?branch=master)](https://travis-ci.com/sindresorhus/linkify-urls)
+# linkify-urls [![Build Status](https://travis-ci.com/sindresorhus/linkify-urls.svg?branch=master)](https://travis-ci.com/github/sindresorhus/linkify-urls)
 
 > Linkify URLs in a string
 
@@ -88,6 +88,5 @@ Version 3 of this package uses [negative lookbehind regex syntax](https://kangax
 
 ## Related
 
-- [url-regex](https://github.com/kevva/url-regex) - Regular expression for matching URLs
 - [linkify-issues](https://github.com/sindresorhus/linkify-issues) - Linkify GitHub issue references
 - [get-urls](https://github.com/sindresorhus/get-urls) - Get all URLs in a string
