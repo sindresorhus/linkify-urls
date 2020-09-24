@@ -25,15 +25,16 @@ const getAsString = (string, options) => {
 };
 
 const getAsDocumentFragment = (string, options) => {
-	return string.split(urlRegex()).reduce((fragment, text, index) => {
+	const fragment = document.createDocumentFragment();
+	for (const [index, text] of Object.entries(string.split(urlRegex()))) {
 		if (index % 2) { // URLs are always in odd positions
 			fragment.append(domify(linkify(text, options)));
 		} else if (text.length > 0) {
-			fragment.append(document.createTextNode(text));
+			fragment.append(text);
 		}
+	}
 
-		return fragment;
-	}, document.createDocumentFragment());
+	return fragment;
 };
 
 module.exports = (string, options) => {
