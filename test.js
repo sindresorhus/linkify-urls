@@ -101,6 +101,10 @@ test('supports `#!` in the URL path', t => {
 	t.is(linkifyUrls('https://twitter.com/#!/sindresorhus'), '<a href="https://twitter.com/#!/sindresorhus">https://twitter.com/#!/sindresorhus</a>');
 });
 
+test('supports `*` in the URL path', t => {
+	t.is(linkifyUrls('https://crontab.guru/#1_*'), '<a href="https://crontab.guru/#1_*">https://crontab.guru/#1_*</a>');
+});
+
 test('supports `,` in the URL path, but not at the end', t => {
 	t.is(linkifyUrls('https://sindresorhus.com/?id=foo,bar'), '<a href="https://sindresorhus.com/?id=foo,bar">https://sindresorhus.com/?id=foo,bar</a>');
 	t.is(linkifyUrls('https://sindresorhus.com/?id=foo, bar'), '<a href="https://sindresorhus.com/?id=foo">https://sindresorhus.com/?id=foo</a>, bar');
