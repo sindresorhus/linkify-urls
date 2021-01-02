@@ -1,4 +1,4 @@
-# linkify-urls [![Build Status](https://travis-ci.com/sindresorhus/linkify-urls.svg?branch=master)](https://travis-ci.com/github/sindresorhus/linkify-urls)
+# linkify-urls
 
 > Linkify URLs in a string
 
