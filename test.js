@@ -44,8 +44,8 @@ test('main', t => {
 	);
 
 	t.is(
-		linkifyUrls('[![Build Status](https://travis-ci.org/sindresorhus/caprine.svg?branch=master)](https://travis-ci.org/sindresorhus/caprine)'),
-		'[![Build Status](<a href="https://travis-ci.org/sindresorhus/caprine.svg?branch=master">https://travis-ci.org/sindresorhus/caprine.svg?branch=master</a>)](<a href="https://travis-ci.org/sindresorhus/caprine">https://travis-ci.org/sindresorhus/caprine</a>)'
+		linkifyUrls('[![Build Status](https://travis-ci.org/sindresorhus/caprine.svg?branch=main)](https://travis-ci.org/sindresorhus/caprine)'),
+		'[![Build Status](<a href="https://travis-ci.org/sindresorhus/caprine.svg?branch=main">https://travis-ci.org/sindresorhus/caprine.svg?branch=main</a>)](<a href="https://travis-ci.org/sindresorhus/caprine">https://travis-ci.org/sindresorhus/caprine</a>)'
 	);
 });
 
@@ -82,10 +82,10 @@ test('DocumentFragment support', t => {
 	);
 
 	t.is(
-		html(linkifyUrls('[![Build Status](https://travis-ci.org/sindresorhus/caprine.svg?branch=master)](https://travis-ci.org/sindresorhus/caprine)', {
+		html(linkifyUrls('[![Build Status](https://travis-ci.org/sindresorhus/caprine.svg?branch=main)](https://travis-ci.org/sindresorhus/caprine)', {
 			type: 'dom'
 		})),
-		html(domify('[![Build Status](<a href="https://travis-ci.org/sindresorhus/caprine.svg?branch=master">https://travis-ci.org/sindresorhus/caprine.svg?branch=master</a>)](<a href="https://travis-ci.org/sindresorhus/caprine">https://travis-ci.org/sindresorhus/caprine</a>)'))
+		html(domify('[![Build Status](<a href="https://travis-ci.org/sindresorhus/caprine.svg?branch=main">https://travis-ci.org/sindresorhus/caprine.svg?branch=main</a>)](<a href="https://travis-ci.org/sindresorhus/caprine">https://travis-ci.org/sindresorhus/caprine</a>)'))
 	);
 });
 
