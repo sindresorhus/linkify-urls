@@ -4,21 +4,24 @@
 
 ## Install
 
-```
-$ npm install linkify-urls
+```sh
+npm install linkify-urls
 ```
 
 ## Usage
 
 ```js
-const linkifyUrls = require('linkify-urls');
+import linkifyUrls from 'linkify-urls';
 
 linkifyUrls('See https://sindresorhus.com', {
 	attributes: {
 		class: 'unicorn',
 		one: 1,
 		foo: true,
-		multiple: ['a', 'b']
+		multiple: [
+			'a',
+			'b'
+		]
 	}
 });
 //=> 'See <a href="https://sindresorhus.com" class="unicorn" one="1" foo multiple="a b">https://sindresorhus.com</a>'
@@ -42,7 +45,7 @@ document.body.appendChild(fragment);
 
 Type: `string`
 
-String with URLs to linkify.
+A string with URLs to linkify.
 
 #### options
 
@@ -60,7 +63,7 @@ Type: `string`\
 Values: `'string' | 'dom'`\
 Default: `'string'`
 
-Format of the generated content.
+The format of the generated content.
 
 `'string'` will return it as a flat string like `'Visit <a href="https://example.com">https://example.com</a>'`.
 

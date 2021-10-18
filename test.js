@@ -1,11 +1,11 @@
-import {URL} from 'url';
+import {URL} from 'node:url';
 import test from 'ava';
 import jsdom from 'jsdom';
-import linkifyUrls from '.';
+import linkifyUrls from './index.js';
 
 const dom = new jsdom.JSDOM();
-global.window = dom.window;
-global.document = dom.window.document;
+globalThis.window = dom.window;
+globalThis.document = dom.window.document;
 
 // Ponyfill until this is in:
 // https://github.com/tmpvar/jsdom/issues/317
@@ -14,7 +14,7 @@ document.createRange = () => ({
 		const element = document.createElement('template');
 		element.innerHTML = html;
 		return element.content;
-	}
+	},
 });
 
 // Get DOM node from HTML
@@ -30,22 +30,22 @@ const html = dom => {
 test('main', t => {
 	t.is(
 		linkifyUrls('See https://sindresorhus.com and https://github.com/sindresorhus/got'),
-		'See <a href="https://sindresorhus.com">https://sindresorhus.com</a> and <a href="https://github.com/sindresorhus/got">https://github.com/sindresorhus/got</a>'
+		'See <a href="https://sindresorhus.com">https://sindresorhus.com</a> and <a href="https://github.com/sindresorhus/got">https://github.com/sindresorhus/got</a>',
 	);
 
 	t.is(
 		linkifyUrls('See https://sindresorhus.com', {
 			attributes: {
 				class: 'unicorn',
-				target: '_blank'
-			}
+				target: '_blank',
+			},
 		}),
-		'See <a href="https://sindresorhus.com" class="unicorn" target="_blank">https://sindresorhus.com</a>'
+		'See <a href="https://sindresorhus.com" class="unicorn" target="_blank">https://sindresorhus.com</a>',
 	);
 
 	t.is(
 		linkifyUrls('[![Build Status](https://travis-ci.org/sindresorhus/caprine.svg?branch=main)](https://travis-ci.org/sindresorhus/caprine)'),
-		'[![Build Status](<a href="https://travis-ci.org/sindresorhus/caprine.svg?branch=main">https://travis-ci.org/sindresorhus/caprine.svg?branch=main</a>)](<a href="https://travis-ci.org/sindresorhus/caprine">https://travis-ci.org/sindresorhus/caprine</a>)'
+		'[![Build Status](<a href="https://travis-ci.org/sindresorhus/caprine.svg?branch=main">https://travis-ci.org/sindresorhus/caprine.svg?branch=main</a>)](<a href="https://travis-ci.org/sindresorhus/caprine">https://travis-ci.org/sindresorhus/caprine</a>)',
 	);
 });
 
@@ -55,19 +55,19 @@ test('supports boolean and non-string attribute values', t => {
 			attributes: {
 				foo: true,
 				bar: false,
-				one: 1
-			}
+				one: 1,
+			},
 		}),
-		'<a href="https://sindresorhus.com" foo one="1">https://sindresorhus.com</a>'
+		'<a href="https://sindresorhus.com" foo one="1">https://sindresorhus.com</a>',
 	);
 });
 
 test('DocumentFragment support', t => {
 	t.is(
 		html(linkifyUrls('See https://sindresorhus.com and https://github.com/sindresorhus/got', {
-			type: 'dom'
+			type: 'dom',
 		})),
-		html(domify('See <a href="https://sindresorhus.com">https://sindresorhus.com</a> and <a href="https://github.com/sindresorhus/got">https://github.com/sindresorhus/got</a>'))
+		html(domify('See <a href="https://sindresorhus.com">https://sindresorhus.com</a> and <a href="https://github.com/sindresorhus/got">https://github.com/sindresorhus/got</a>')),
 	);
 
 	t.is(
@@ -75,17 +75,17 @@ test('DocumentFragment support', t => {
 			type: 'dom',
 			attributes: {
 				class: 'unicorn',
-				target: '_blank'
-			}
+				target: '_blank',
+			},
 		})),
-		html(domify('See <a href="https://sindresorhus.com" class="unicorn" target="_blank">https://sindresorhus.com</a>'))
+		html(domify('See <a href="https://sindresorhus.com" class="unicorn" target="_blank">https://sindresorhus.com</a>')),
 	);
 
 	t.is(
 		html(linkifyUrls('[![Build Status](https://travis-ci.org/sindresorhus/caprine.svg?branch=main)](https://travis-ci.org/sindresorhus/caprine)', {
-			type: 'dom'
+			type: 'dom',
 		})),
-		html(domify('[![Build Status](<a href="https://travis-ci.org/sindresorhus/caprine.svg?branch=main">https://travis-ci.org/sindresorhus/caprine.svg?branch=main</a>)](<a href="https://travis-ci.org/sindresorhus/caprine">https://travis-ci.org/sindresorhus/caprine</a>)'))
+		html(domify('[![Build Status](<a href="https://travis-ci.org/sindresorhus/caprine.svg?branch=main">https://travis-ci.org/sindresorhus/caprine.svg?branch=main</a>)](<a href="https://travis-ci.org/sindresorhus/caprine">https://travis-ci.org/sindresorhus/caprine</a>)')),
 	);
 });
 
@@ -114,13 +114,13 @@ test('supports `,` in the URL path, but not at the end', t => {
 test('supports `value` option', t => {
 	t.is(linkifyUrls('See https://github.com/sindresorhus.com/linkify-urls for a solution', {
 		type: 'string',
-		value: 0
+		value: 0,
 	}), 'See <a href="https://github.com/sindresorhus.com/linkify-urls">0</a> for a solution');
 });
 
 test('supports `value` option as function', t => {
 	t.is(linkifyUrls('See https://github.com/sindresorhus.com/linkify-urls for a solution', {
-		value: url => new URL(url).hostname
+		value: url => new URL(url).hostname,
 	}), 'See <a href="https://github.com/sindresorhus.com/linkify-urls">github.com</a> for a solution');
 });
 
