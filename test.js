@@ -150,6 +150,13 @@ test('supports localhost URLs', t => {
 
 test('skips truncated URLs', t => {
 	t.is(linkifyUrls('https://github.com/sindresorhus.com/linkify-…'), 'https://github.com/sindresorhus.com/linkify-…');
+	t.is(linkifyUrls('https://github.com/sindresorhus.com/linkify-… and https://github.com/sindresorhus.com/linkify-…'), '<a href="https://github.com/sindresorhus.com/linkify-">https://github.com/sindresorhus.com/linkify-</a>… and https://github.com/sindresorhus.com/linkify-…');
+	t.is(
+		html(linkifyUrls('See https://github.com/sindresorhus.com/linkify-urls… and https://github.com/sindresorhus.com/linkify-…', {
+			type: 'dom',
+		})),
+		html(domify('See <a href="https://github.com/sindresorhus.com/linkify-urls">https://github.com/sindresorhus.com/linkify-urls</a>… and https://github.com/sindresorhus.com/linkify-…')),
+	);
 	t.is(
 		html(linkifyUrls('See https://github.com/sindresorhus.com/linkify-urls and https://github.com/sindresorhus.com/linkify-…', {
 			type: 'dom',

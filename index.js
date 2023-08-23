@@ -19,13 +19,13 @@ const linkify = (href, options) => createHtmlElement({
 // Get DOM node from HTML
 const domify = html => document.createRange().createContextualFragment(html);
 
-const getAsString = (string, options) => string.replace(urlRegex(), (match, _, offset) => string.charAt(offset + match.length) === '…' ? match : linkify(match, options));
+const getAsString = (string, options) => string.replace(urlRegex(), (match, _, offset) => offset + match.length + 1 === string.length && string.charAt(offset + match.length) === '…' ? match : linkify(match, options));
 
 const getAsDocumentFragment = (string, options) => {
 	const fragment = document.createDocumentFragment();
 	const entries = Object.entries(string.split(urlRegex())).map(([k, v]) => [Number(k), v]);
 	for (const [index, text] of entries) {
-		if (index % 2 && (index - 1 === entries.length || (index + 1 < entries.length && entries[index + 1][1].charAt(0) !== '…'))) { // URLs are always in odd positions
+		if (index % 2 && (index + 2 < entries.length || entries[index + 1][1] !== '…')) { // URLs are always in odd positions
 			fragment.append(domify(linkify(text, options)));
 		} else if (text.length > 0) {
 			fragment.append(text);
