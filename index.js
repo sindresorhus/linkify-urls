@@ -25,7 +25,7 @@ const getAsDocumentFragment = (string, options) => {
 	const fragment = document.createDocumentFragment();
 	const entries = Object.entries(string.split(urlRegex())).map(([k, v]) => [Number(k), v]);
 	for (const [index, text] of entries) {
-		if (index % 2 && (index + 2 < entries.length || entries[index + 1][1] !== '…')) { // URLs are always in odd positions
+		if (index % 2 && (index + 2 < entries.length || entries[entries.length - 1][1] !== '…')) { // URLs are always in odd positions
 			fragment.append(domify(linkify(text, options)));
 		} else if (text.length > 0) {
 			fragment.append(text);
