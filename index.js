@@ -12,8 +12,7 @@ const linkify = (href, options) => createHtmlElement({
 		href, // eslint-disable-line no-dupe-keys
 	},
 	text: typeof options.value === 'undefined' ? href : undefined,
-	html: typeof options.value === 'undefined' ? undefined
-		: (typeof options.value === 'function' ? options.value(href) : options.value),
+	html: typeof options.value === 'function' ? options.value(href) : options.value,
 });
 
 // Get DOM node from HTML
