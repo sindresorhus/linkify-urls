@@ -19,7 +19,7 @@ const linkify = (href, options) => createHtmlElement({
 // Get DOM node from HTML
 const domify = html => document.createRange().createContextualFragment(html);
 
-const getAsString = (string, options) => string.replace(urlRegex(), (match, _, offset) => offset + match.length + 1 === string.length && string.charAt(offset + match.length) === '…' ? match : linkify(match, options));
+const getAsString = (string, options) => string.replace(urlRegex(), (match, _, offset) => offset + match.length + 1 === string.length && string.charAt(string.length - 1) === '…' ? match : linkify(match, options));
 
 const getAsDocumentFragment = (string, options) => {
 	const fragment = document.createDocumentFragment();
