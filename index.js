@@ -23,7 +23,7 @@ const getAsString = (string, options) => string.replace(urlRegex(), (match, _, o
 
 const getAsDocumentFragment = (string, options) => {
 	const fragment = document.createDocumentFragment();
-	const entries = Object.entries(string.split(urlRegex())).map(([k, v]) => [Number(k), v]);
+	const entries = [...string.split(urlRegex()).entries()];
 	for (const [index, text] of entries) {
 		if (index % 2 && (index + 2 < entries.length || entries[entries.length - 1][1] !== '…')) { // URLs are always in odd positions
 			fragment.append(domify(linkify(text, options)));
