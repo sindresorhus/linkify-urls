@@ -19,9 +19,13 @@ const linkify = (href, options) => createHtmlElement({
 // Get DOM node from HTML
 const domify = html => document.createRange().createContextualFragment(html);
 
-const isTruncated = (index, entries) => index + 2 === entries.length && (entries[entries.length - 1][1] === '…' || (entries[index][1].endsWith('...') && entries[entries.length - 1][1] === ''));
+// If URL followed by … or ends with ...
+const isTruncated = (index, entries) => entries[index + 1][1].startsWith('…') || entries[index][1].endsWith('...');
 
-const getAsString = (string, options) => string.replace(urlRegex(), (match, _, offset) => (offset + match.length + 1 === string.length && string.endsWith('…')) || (offset + match.length === string.length && string.endsWith('...')) ? match : linkify(match, options));
+// If URL followed by … or ends with ...
+const getAsString = (string, options) => string.replace(urlRegex(), (match, _, offset) =>
+	string.charAt(offset + match.length) === '…'
+	|| match.endsWith('...') ? match : linkify(match, options));
 
 const getAsDocumentFragment = (string, options) => {
 	const fragment = document.createDocumentFragment();

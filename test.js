@@ -150,11 +150,11 @@ test('supports localhost URLs', t => {
 
 test('skips truncated URLs', t => {
 	t.is(linkifyUrls('https://github.com/sindresorhus/linkify-…'), 'https://github.com/sindresorhus/linkify-…');
-	t.is(linkifyUrls('https://github.com/sindresorhus/linkify-… and https://github.com/sindresorhus/linkify-…'), '<a href="https://github.com/sindresorhus/linkify-">https://github.com/sindresorhus/linkify-</a>… and https://github.com/sindresorhus/linkify-…');
+	t.is(linkifyUrls('https://github.com/sindresorhus/linkify-… and https://github.com/sindresorhus/linkify-…'), 'https://github.com/sindresorhus/linkify-… and https://github.com/sindresorhus/linkify-…');
 	t.is(linkifyUrls('https://github.com/sindresorhus/linkify-urls and more…'), '<a href="https://github.com/sindresorhus/linkify-urls">https://github.com/sindresorhus/linkify-urls</a> and more…');
 
 	t.is(linkifyUrls('https://github.com/sindresorhus/linkify-...'), 'https://github.com/sindresorhus/linkify-...');
-	t.is(linkifyUrls('https://github.com/sindresorhus/linkify-... and https://github.com/sindresorhus/linkify-...'), '<a href="https://github.com/sindresorhus/linkify-...">https://github.com/sindresorhus/linkify-...</a> and https://github.com/sindresorhus/linkify-...');
+	t.is(linkifyUrls('https://github.com/sindresorhus/linkify-... and https://github.com/sindresorhus/linkify-...'), 'https://github.com/sindresorhus/linkify-... and https://github.com/sindresorhus/linkify-...');
 	t.is(linkifyUrls('https://github.com/sindresorhus/linkify-urls and more...'), '<a href="https://github.com/sindresorhus/linkify-urls">https://github.com/sindresorhus/linkify-urls</a> and more...');
 });
 
@@ -169,7 +169,7 @@ test('skips truncated URLs (DocumentFragment)', t => {
 		html(linkifyUrls('See https://github.com/sindresorhus/linkify-urls… and https://github.com/sindresorhus/linkify-…', {
 			type: 'dom',
 		})),
-		html(domify('See <a href="https://github.com/sindresorhus/linkify-urls">https://github.com/sindresorhus/linkify-urls</a>… and https://github.com/sindresorhus/linkify-…')),
+		html(domify('See https://github.com/sindresorhus/linkify-urls… and https://github.com/sindresorhus/linkify-…')),
 	);
 
 	t.is(
@@ -179,9 +179,9 @@ test('skips truncated URLs (DocumentFragment)', t => {
 		html(domify('See <a href="https://github.com/sindresorhus/linkify-urls">https://github.com/sindresorhus/linkify-urls</a> and https://github.com/sindresorhus/linkify-...')),
 	);
 	t.is(
-		html(linkifyUrls('See https://github.com/sindresorhus/linkify-urls... and https://github.com/sindresorhus/linkify-...', {
+		html(linkifyUrls('See https://github.com/sindresorhus/linkify-... and https://github.com/sindresorhus/linkify-...', {
 			type: 'dom',
 		})),
-		html(domify('See <a href="https://github.com/sindresorhus/linkify-urls...">https://github.com/sindresorhus/linkify-urls...</a> and https://github.com/sindresorhus/linkify-...')),
+		html(domify('See https://github.com/sindresorhus/linkify-... and https://github.com/sindresorhus/linkify-...')),
 	);
 });
