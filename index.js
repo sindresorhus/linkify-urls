@@ -19,17 +19,19 @@ const linkify = (href, options) => createHtmlElement({
 // Get DOM node from HTML
 const domify = html => document.createRange().createContextualFragment(html);
 
-// If URL followed by … or ends with ...
+// If URL followed by `…` or ends with `...`.
 const isTruncated = (index, entries) => entries[index + 1][1].startsWith('…') || entries[index][1].endsWith('...');
 
-// If URL followed by … or ends with ...
+// If URL followed by `…` or ends with `...`.
 const getAsString = (string, options) => string.replace(urlRegex(), (match, _, offset) =>
-	string.charAt(offset + match.length) === '…'
-	|| match.endsWith('...') ? match : linkify(match, options));
+	(string.charAt(offset + match.length) === '…' || match.endsWith('...'))
+		? match
+		: linkify(match, options));
 
 const getAsDocumentFragment = (string, options) => {
 	const fragment = document.createDocumentFragment();
 	const entries = [...string.split(urlRegex()).entries()];
+
 	for (const [index, text] of entries) {
 		if (index % 2 && !isTruncated(index, entries)) { // URLs are always in odd positions
 			fragment.append(domify(linkify(text, options)));
