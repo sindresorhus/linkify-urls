@@ -32,7 +32,7 @@ const getAsDocumentFragment = (string, options) => {
 	const fragment = document.createDocumentFragment();
 	const parts = string.split(urlRegex());
 
-	for (const [index, text] of parts) {
+	for (const [index, text] of parts.entries()) {
 		// URLs are always in odd positions
 		if (index % 2 && !isTruncated(text, parts[index + 1])) {
 			fragment.append(domify(linkify(text, options)));
