@@ -19,21 +19,22 @@ const linkify = (href, options) => createHtmlElement({
 // Get DOM node from HTML
 const domify = html => document.createRange().createContextualFragment(html);
 
-// If URL followed by `…` or ends with `...`.
-const isTruncated = (index, entries) => entries[index + 1][1].startsWith('…') || entries[index][1].endsWith('...');
+const isTruncated = (url, peek) =>
+	url.endsWith('...') // `...` is a matched by the URL regex
+	|| peek.startsWith('…'); // `…` can follow the match
 
-// If URL followed by `…` or ends with `...`.
-const getAsString = (string, options) => string.replace(urlRegex(), (match, _, offset) =>
-	(string.charAt(offset + match.length) === '…' || match.endsWith('...'))
-		? match
-		: linkify(match, options));
+const getAsString = (string, options) => string.replace(urlRegex(), (url, _, offset) =>
+	(isTruncated(url, string.charAt(offset + url.length)))
+		? url
+		: linkify(url, options));
 
 const getAsDocumentFragment = (string, options) => {
 	const fragment = document.createDocumentFragment();
-	const entries = [...string.split(urlRegex()).entries()];
+	const parts = string.split(urlRegex());
 
-	for (const [index, text] of entries) {
-		if (index % 2 && !isTruncated(index, entries)) { // URLs are always in odd positions
+	for (const [index, text] of parts) {
+		// URLs are always in odd positions
+		if (index % 2 && !isTruncated(text, parts[index + 1])) {
 			fragment.append(domify(linkify(text, options)));
 		} else if (text.length > 0) {
 			fragment.append(text);
