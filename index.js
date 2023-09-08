@@ -25,7 +25,7 @@ const isTruncated = (url, peek) =>
 
 const getAsString = (string, options) => string.replace(urlRegex(), (url, _, offset) =>
 	(isTruncated(url, string.charAt(offset + url.length)))
-		? url
+		? url // Don't linkify truncated URLs
 		: linkify(url, options));
 
 const getAsDocumentFragment = (string, options) => {
