@@ -19,12 +19,22 @@ const linkify = (href, options) => createHtmlElement({
 // Get DOM node from HTML
 const domify = html => document.createRange().createContextualFragment(html);
 
-const getAsString = (string, options) => string.replace(urlRegex(), match => linkify(match, options));
+const isTruncated = (url, peek) =>
+	url.endsWith('...') // `...` is a matched by the URL regex
+	|| peek.startsWith('…'); // `…` can follow the match
+
+const getAsString = (string, options) => string.replace(urlRegex(), (url, _, offset) =>
+	(isTruncated(url, string.charAt(offset + url.length)))
+		? url // Don't linkify truncated URLs
+		: linkify(url, options));
 
 const getAsDocumentFragment = (string, options) => {
 	const fragment = document.createDocumentFragment();
-	for (const [index, text] of Object.entries(string.split(urlRegex()))) {
-		if (index % 2) { // URLs are always in odd positions
+	const parts = string.split(urlRegex());
+
+	for (const [index, text] of parts.entries()) {
+		// URLs are always in odd positions
+		if (index % 2 && !isTruncated(text, parts[index + 1])) {
 			fragment.append(domify(linkify(text, options)));
 		} else if (text.length > 0) {
 			fragment.append(text);
