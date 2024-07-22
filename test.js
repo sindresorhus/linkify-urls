@@ -124,6 +124,10 @@ test('supports `value` option as function', t => {
 	}), 'See <a href="https://github.com/sindresorhus.com/linkify-urls">github.com</a> for a solution');
 });
 
+test.failing('skips the trailing period', t => {
+	t.is(linkifyUrls('Visit https://fregante.com.'), 'Visit <a href="https://fregante.com">https://fregante.com</a>.');
+});
+
 test('skips URLs preceded by a `+` sign', t => {
 	const fixture = 'git+https://github.com/sindresorhus/ava';
 	t.is(linkifyUrls(fixture), fixture);
