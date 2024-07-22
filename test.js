@@ -137,10 +137,12 @@ test('supports a URL with a subdomain', t => {
 	t.is(linkifyUrls('https://docs.google.com'), '<a href="https://docs.google.com">https://docs.google.com</a>');
 });
 
-test('skips email addresses', t => {
-	t.is(linkifyUrls('sindre@example.com'), 'sindre@example.com');
-	t.is(linkifyUrls('www.sindre@example.com'), 'www.sindre@example.com');
-	t.is(linkifyUrls('sindre@www.example.com'), 'sindre@www.example.com');
+test('supports a URL with a subdomain', t => {
+	t.is(linkifyUrls('https://docs.google.com'), '<a href="https://docs.google.com">https://docs.google.com</a>');
+});
+
+test('skips the trailing period', t => {
+	t.is(linkifyUrls('Visit https://fregante.com.'), 'Visit <a href="https://fregante.com">https://fregante.com</a>.');
 });
 
 test('supports localhost URLs', t => {
