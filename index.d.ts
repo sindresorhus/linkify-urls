@@ -7,15 +7,6 @@ export interface Options {
 	readonly attributes?: HTMLAttributes;
 
 	/**
-	The format of the generated content.
-
-	`'string'` will return it as a flat string like `'Visit <a href="https://example.com">https://example.com</a>'`.
-
-	`'dom'` will return it as a `DocumentFragment` ready to be appended in a DOM safely, like `DocumentFragment(TextNode('Visit '), HTMLAnchorElement('https://example.com'))`. This type only works in the browser.
-	*/
-	readonly type?: 'string' | 'dom';
-
-	/**
 	Set a custom HTML value for the link.
 
 	Default: The URL.
@@ -34,14 +25,12 @@ export interface Options {
 
 }
 
-export interface TypeDomOptions extends Options {
-	readonly type: 'dom';
-}
-
 /**
-Linkify URLs in a string.
+Linkify URLs in a string, returns an HTML string.
 
-@param string - A string with URLs to linkify.
+@param A string with URLs to linkify.
+
+@returns An HTML string like `'Visit <a href="https://example.com">https://example.com</a>'`.
 
 @example
 ```
@@ -56,9 +45,25 @@ linkifyUrls('See https://sindresorhus.com', {
 	}
 });
 //=> 'See <a href="https://sindresorhus.com" class="unicorn" one="1" foo multiple="a b">https://sindresorhus.com</a>'
+```
+*/
+export function linkifyUrlsToHtml(
+	string: string,
+	options?: Options
+): string;
 
-// In the browser
-const fragment = linkifyUrls('See https://sindresorhus.com', {
+/**
+Linkify URLs in a string, returns a `DocumentFragment`.
+
+@param A string with URLs to linkify.
+
+@returns a `DocumentFragment` ready to be appended in a DOM safely, like `DocumentFragment(TextNode('Visit '), HTMLAnchorElement('https://example.com'))`. This type only works in the browser.
+
+@example
+```
+import {linkifyUrlsToDom} from 'linkify-urls';
+
+const fragment = linkifyUrlsToDom('See https://sindresorhus.com', {
 	type: 'dom',
 	attributes: {
 		class: 'unicorn',
@@ -67,13 +72,9 @@ const fragment = linkifyUrls('See https://sindresorhus.com', {
 document.body.appendChild(fragment);
 ```
 */
-export default function linkifyUrls(
-	string: string,
-	options: TypeDomOptions
-): DocumentFragment;
-export default function linkifyUrls(
+export function linkifyUrlsToDom(
 	string: string,
 	options?: Options
-): string;
+): DocumentFragment;
 
 export {HTMLAttributes} from 'create-html-element';

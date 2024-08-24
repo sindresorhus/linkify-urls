@@ -4,7 +4,7 @@ import createHtmlElement from 'create-html-element';
 const urlRegex = () => (/((?<!\+)https?:\/\/(?:www\.)?(?:[-\w.]+?[.@][a-zA-Z\d]{2,}|localhost)(?:[-\w.:%+~#*$!?&/=@]*?(?:,(?!\s))*?)*)/g);
 
 // Get `<a>` element as string
-const linkify = (href, options) => createHtmlElement({
+const linkify = (href, options = {}) => createHtmlElement({
 	name: 'a',
 	attributes: {
 		href: '',
@@ -23,12 +23,16 @@ const isTruncated = (url, peek) =>
 	url.endsWith('...') // `...` is a matched by the URL regex
 	|| peek.startsWith('…'); // `…` can follow the match
 
-const getAsString = (string, options) => string.replace(urlRegex(), (url, _, offset) =>
-	(isTruncated(url, string.charAt(offset + url.length)))
-		? url // Don't linkify truncated URLs
-		: linkify(url, options));
+export function linkifyUrlsToHtml(string, options) {
+	const replacer = (url, _, offset) =>
+		isTruncated(url, string.charAt(offset + url.length))
+			? url // Don't linkify truncated URLs
+			: linkify(url, options);
 
-const getAsDocumentFragment = (string, options) => {
+	return string.replace(urlRegex(), replacer);
+}
+
+export function linkifyUrlsToDom(string, options) {
 	const fragment = document.createDocumentFragment();
 	const parts = string.split(urlRegex());
 
@@ -42,22 +46,4 @@ const getAsDocumentFragment = (string, options) => {
 	}
 
 	return fragment;
-};
-
-export default function linkifyUrls(string, options) {
-	options = {
-		attributes: {},
-		type: 'string',
-		...options,
-	};
-
-	if (options.type === 'string') {
-		return getAsString(string, options);
-	}
-
-	if (options.type === 'dom') {
-		return getAsDocumentFragment(string, options);
-	}
-
-	throw new TypeError('The type option must be either `dom` or `string`');
 }
