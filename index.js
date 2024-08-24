@@ -3,6 +3,17 @@ import createHtmlElement from 'create-html-element';
 // Capture the whole URL in group 1 to keep `String#split()` support
 const urlRegex = () => (/((?<!\+)https?:\/\/(?:www\.)?(?:[-\w.]+?[.@][a-zA-Z\d]{2,}|localhost)(?:[-\w.:%+~#*$!?&/=@]*?(?:,(?!\s))*?)*)/g);
 
+const parseValue = (value, href) => {
+	switch (typeof value) {
+		case 'function':
+			return {html: value(href)};
+		case 'undefined':
+			return {text: href};
+		default:
+			return {html: value};
+	}
+};
+
 // Get `<a>` element as string
 const linkify = (href, options = {}) => createHtmlElement({
 	name: 'a',
@@ -11,13 +22,35 @@ const linkify = (href, options = {}) => createHtmlElement({
 		...options.attributes,
 		href, // eslint-disable-line no-dupe-keys
 	},
-	text: typeof options.value === 'undefined' ? href : undefined,
-	html: typeof options.value === 'undefined' ? undefined
-		: (typeof options.value === 'function' ? options.value(href) : options.value),
+	...parseValue(options.value, href),
 });
 
-// Get DOM node from HTML
-const domify = html => document.createRange().createContextualFragment(html);
+const linkifyAsElement = (href, options = {}) => {
+	const link = document.createElement('a');
+	link.href = href;
+
+	for (let [key, value] of Object.entries(options.attributes ?? {})) {
+		if (value === false || value === undefined || value === null) {
+			continue;
+		}
+
+		if (Array.isArray(value)) {
+			value = value.join(' ');
+		}
+
+		link.setAttribute(key, value);
+	}
+
+	const {html, text} = parseValue(options.value, href);
+
+	if (html) {
+		link.innerHTML = html;
+	} else {
+		link.textContent = text;
+	}
+
+	return link;
+};
 
 const isTruncated = (url, peek) =>
 	url.endsWith('...') // `...` is a matched by the URL regex
@@ -39,7 +72,7 @@ export function linkifyUrlsToDom(string, options) {
 	for (const [index, text] of parts.entries()) {
 		// URLs are always in odd positions
 		if (index % 2 && !isTruncated(text, parts[index + 1])) {
-			fragment.append(domify(linkify(text, options)));
+			fragment.append(linkifyAsElement(text, options));
 		} else if (text.length > 0) {
 			fragment.append(text);
 		}
