@@ -11,9 +11,9 @@ npm install linkify-urls
 ## Usage
 
 ```js
-import linkifyUrls from 'linkify-urls';
+import {linkifyUrlsToHtml, linkifyUrlsToDom} from 'linkify-urls';
 
-linkifyUrls('See https://sindresorhus.com', {
+linkifyUrlsToHtml('See https://sindresorhus.com', {
 	attributes: {
 		class: 'unicorn',
 		one: 1,
@@ -28,8 +28,7 @@ linkifyUrls('See https://sindresorhus.com', {
 
 
 // In the browser
-const fragment = linkifyUrls('See https://sindresorhus.com', {
-	type: 'dom',
+const fragment = linkifyUrlsToDom('See https://sindresorhus.com', {
 	attributes: {
 		class: 'unicorn',
 	}
@@ -39,7 +38,9 @@ document.body.appendChild(fragment);
 
 ## API
 
-### linkifyUrls(string, options?)
+### linkifyUrlsToHtml(string, options?)
+
+Returns an HTML string like `'Visit <a href="https://example.com">https://example.com</a>'`.
 
 #### string
 
@@ -57,18 +58,6 @@ Type: `object`
 
 HTML attributes to add to the link.
 
-##### type
-
-Type: `string`\
-Values: `'string' | 'dom'`\
-Default: `'string'`
-
-The format of the generated content.
-
-`'string'` will return it as a flat string like `'Visit <a href="https://example.com">https://example.com</a>'`.
-
-`'dom'` will return it as a `DocumentFragment` ready to be appended in a DOM safely, like `DocumentFragment(TextNode('Visit '), HTMLAnchorElement('https://example.com'))`. This type only works in the browser.
-
 ##### value
 
 Type: `string | Function`\
@@ -79,11 +68,21 @@ Set a custom HTML value for the link.
 If it's a function, it will receive the URL as a string:
 
 ```js
-linkifyUrls('See https://sindresorhus.com/foo', {
+linkifyUrlsToHtml('See https://sindresorhus.com/foo', {
 	value: url => new URL(url).pathname
 });
 //=> 'See <a href="https://sindresorhus.com/foo">/foo</a>'
 ```
+
+### linkifyUrlsToDom(string, options?)
+
+Returns a `DocumentFragment` ready to be appended in a DOM safely, like `DocumentFragment(TextNode('Visit '), HTMLAnchorElement('https://example.com'))`.
+
+This type only works in the browser.
+
+#### options
+
+See [options](#options) above.
 
 ## Browser compatibility
 

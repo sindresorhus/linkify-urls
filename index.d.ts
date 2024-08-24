@@ -13,9 +13,9 @@ export interface Options {
 
 	@example
 	```
-	import linkifyUrls from 'linkify-urls';
+	import {linkifyUrlsToHtml} from 'linkify-urls';
 
-	linkifyUrls('See https://sindresorhus.com/foo', {
+	linkifyUrlsToHtml('See https://sindresorhus.com/foo', {
 		value: url => new URL(url).pathname
 	});
 	//=> 'See <a href="https://sindresorhus.com/foo">/foo</a>'
@@ -28,15 +28,15 @@ export interface Options {
 /**
 Linkify URLs in a string, returns an HTML string.
 
-@param A string with URLs to linkify.
+@param string - A string with URLs to linkify.
 
 @returns An HTML string like `'Visit <a href="https://example.com">https://example.com</a>'`.
 
 @example
 ```
-import linkifyUrls from 'linkify-urls';
+import {linkifyUrlsToHtml} from 'linkify-urls';
 
-linkifyUrls('See https://sindresorhus.com', {
+linkifyUrlsToHtml('See https://sindresorhus.com', {
 	attributes: {
 		class: 'unicorn',
 		one: 1,
@@ -55,7 +55,7 @@ export function linkifyUrlsToHtml(
 /**
 Linkify URLs in a string, returns a `DocumentFragment`.
 
-@param A string with URLs to linkify.
+@param string - A string with URLs to linkify.
 
 @returns a `DocumentFragment` ready to be appended in a DOM safely, like `DocumentFragment(TextNode('Visit '), HTMLAnchorElement('https://example.com'))`. This type only works in the browser.
 
@@ -64,7 +64,6 @@ Linkify URLs in a string, returns a `DocumentFragment`.
 import {linkifyUrlsToDom} from 'linkify-urls';
 
 const fragment = linkifyUrlsToDom('See https://sindresorhus.com', {
-	type: 'dom',
 	attributes: {
 		class: 'unicorn',
 	}

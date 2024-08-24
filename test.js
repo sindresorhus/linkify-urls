@@ -108,7 +108,6 @@ test('supports `,` in the URL path, but not at the end', t => {
 
 test('supports `value` option', t => {
 	t.is(linkifyUrlsToHtml('See https://github.com/sindresorhus.com/linkify-urls for a solution', {
-		type: 'string',
 		value: 0,
 	}), 'See <a href="https://github.com/sindresorhus.com/linkify-urls">0</a> for a solution');
 });
