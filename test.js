@@ -153,6 +153,6 @@ for (const [name, linkify] of Object.entries({
 	});
 }
 
-test.failing("skips the trailing period", (t) => {
+test.failing('skips the trailing period', t => {
 	t.is(linkifyUrlsToHtml('Visit https://fregante.com.'), 'Visit <a href="https://fregante.com">https://fregante.com</a>.');
 });
