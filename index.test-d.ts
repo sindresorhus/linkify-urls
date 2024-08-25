@@ -1,8 +1,8 @@
 import {expectType} from 'tsd';
-import linkifyUrls from './index.js';
+import {linkifyUrlsToHtml, linkifyUrlsToDom} from './index.js';
 
 expectType<string>(
-	linkifyUrls('See https://sindresorhus.com', {
+	linkifyUrlsToHtml('See https://sindresorhus.com', {
 		attributes: {
 			class: 'unicorn',
 			one: 1,
@@ -12,12 +12,12 @@ expectType<string>(
 	}),
 );
 expectType<string>(
-	linkifyUrls('See https://sindresorhus.com', {
+	linkifyUrlsToHtml('See https://sindresorhus.com', {
 		value: 'foo',
 	}),
 );
 expectType<string>(
-	linkifyUrls('See https://sindresorhus.com/foo', {
+	linkifyUrlsToHtml('See https://sindresorhus.com/foo', {
 		value: url => {
 			expectType<string>(url);
 			return url;
@@ -25,13 +25,10 @@ expectType<string>(
 	}),
 );
 expectType<string>(
-	linkifyUrls('See https://sindresorhus.com/foo', {
-		type: 'string',
-	}),
+	linkifyUrlsToHtml('See https://sindresorhus.com/foo'),
 );
 
-const fragment = linkifyUrls('See https://sindresorhus.com', {
-	type: 'dom',
+const fragment = linkifyUrlsToDom('See https://sindresorhus.com', {
 	attributes: {
 		class: 'unicorn',
 	},
