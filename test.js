@@ -175,3 +175,12 @@ test('skips truncated URLs (DocumentFragment)', t => {
 		html(domify('See https://github.com/sindresorhus/linkify-... and https://github.com/sindresorhus/linkify-...')),
 	);
 });
+
+test('supports CJK URLs', t => {
+	t.is(linkifyUrlsToHtml('https://语c.com'), '<a href="https://语c.com">https://语c.com</a>');
+	t.is(
+		linkifyUrlsToHtml('https://github.com/scarf005/hangul-test/wiki/한글-위키-페이지'),
+		'<a href="https://github.com/scarf005/hangul-test/wiki/한글-위키-페이지">https://github.com/scarf005/hangul-test/wiki/한글-위키-페이지</a>',
+	);
+	t.is(linkifyUrlsToHtml('https://www.例.jp'), '<a href="https://www.例.jp">https://www.例.jp</a>');
+});
