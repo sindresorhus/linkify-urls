@@ -1,7 +1,7 @@
 import createHtmlElement from 'create-html-element';
 
 // Capture the whole URL in group 1 to keep `String#split()` support
-const urlRegex = () => (/((?<!\+)https?:\/\/(?:www\.)?(?:[-\w.]+?[.@][a-zA-Z\d]{2,}|localhost)(?:[-\w.:%+~#*$!?&/=@]*?(?:,(?!\s))*?)*)/g);
+const urlRegex = () => (/((?<!\+)https?:\/\/(?:www\.)?(?:[-\p{Letter}.]+?[.@][a-zA-Z\d]{2,}|localhost)(?:[-\w\p{Letter}.:%+~#*$!?&/=@]*?(?:,(?!\s))*?)*)/gu);
 
 // Get `<a>` element as string
 const linkify = (href, options = {}) => createHtmlElement({
