@@ -151,6 +151,12 @@ for (const [name, linkify] of Object.entries({
 			linkify('https://github.com/sindresorhus/linkify-urls and more...'),
 		);
 	});
+
+	test(name + ': supports CJK URLs', t => {
+		t.snapshot(linkify('A URL with 中文: https://语c.com'));
+		t.snapshot(linkify('https://github.com/scarf005/hangul-test/wiki/한글-위키-페이지 and other hangul'));
+		t.snapshot(linkify('https://www.例.jp?'));
+	});
 }
 
 test.failing('skips the trailing period', t => {
