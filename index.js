@@ -23,9 +23,8 @@ const parseValue = (value, href) => {
 const linkify = (href, options = {}) => createHtmlElement({
 	name: 'a',
 	attributes: {
-		href: '',
 		...options.attributes,
-		href, // eslint-disable-line no-dupe-keys
+		href,
 	},
 	...parseValue(options.value, href),
 });
