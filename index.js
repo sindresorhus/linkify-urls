@@ -3,17 +3,32 @@ import createHtmlElement from 'create-html-element';
 // Capture the whole URL in group 1 to keep `String#split()` support
 const urlRegex = () => (/((?<!\+)https?:\/\/(?:www\.)?(?:[-\p{Letter}.]+?[.@][a-zA-Z\d]{2,}|localhost)(?:[-\w\p{Letter}.:%+~#*$!?&/=@]*?(?:,(?!\s))*?)*)/gu);
 
+const parseValue = (value, href) => {
+	switch (typeof value) {
+		case 'function': {
+			return {html: value(href)};
+		}
+
+		case 'undefined': {
+			return {text: href};
+		}
+
+		default: {
+			return {html: value};
+		}
+	}
+};
+
 // Get `<a>` element as string
 const linkify = (href, options = {}) => createHtmlElement({
 	name: 'a',
+	// First `href` is needed for the `href` attribute to be the first attribute on the `a` tag
 	attributes: {
-		href: '',
+		href,
 		...options.attributes,
-		href, // eslint-disable-line no-dupe-keys
+		href, // eslint-disable-line no-dupe-keys -- Ensures it's not overwritten
 	},
-	text: options.value === undefined ? href : undefined,
-	html: options.value === undefined ? undefined
-		: (typeof options.value === 'function' ? options.value(href) : options.value),
+	...parseValue(options.value, href),
 });
 
 // Get DOM node from HTML
