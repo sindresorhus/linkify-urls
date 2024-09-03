@@ -5,12 +5,17 @@ const urlRegex = () => (/((?<!\+)https?:\/\/(?:www\.)?(?:[-\p{Letter}.]+?[.@][a-
 
 const parseValue = (value, href) => {
 	switch (typeof value) {
-		case 'function':
+		case 'function': {
 			return {html: value(href)};
-		case 'undefined':
+		}
+
+		case 'undefined': {
 			return {text: href};
-		default:
+		}
+
+		default: {
 			return {html: value};
+		}
 	}
 };
 
