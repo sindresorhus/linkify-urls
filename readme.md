@@ -84,10 +84,6 @@ This type only works in the browser.
 
 See [options](#options) above.
 
-## Browser compatibility
-
-Version 3 of this package uses [negative lookbehind regex syntax](https://kangax.github.io/compat-table/es2016plus/#test-RegExp_Lookbehind_Assertions). Stay on version 2 if you need to support browsers that doesn't support this feature.
-
 ## Related
 
 - [linkify-issues](https://github.com/sindresorhus/linkify-issues) - Linkify GitHub issue references

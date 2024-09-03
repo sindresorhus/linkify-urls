@@ -11,8 +11,8 @@ const linkify = (href, options = {}) => createHtmlElement({
 		...options.attributes,
 		href, // eslint-disable-line no-dupe-keys
 	},
-	text: typeof options.value === 'undefined' ? href : undefined,
-	html: typeof options.value === 'undefined' ? undefined
+	text: options.value === undefined ? href : undefined,
+	html: options.value === undefined ? undefined
 		: (typeof options.value === 'function' ? options.value(href) : options.value),
 });
 

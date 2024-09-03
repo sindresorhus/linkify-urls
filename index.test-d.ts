@@ -18,7 +18,7 @@ expectType<string>(
 );
 expectType<string>(
 	linkifyUrlsToHtml('See https://sindresorhus.com/foo', {
-		value: url => {
+		value(url) {
 			expectType<string>(url);
 			return url;
 		},

@@ -1,6 +1,6 @@
-import {HTMLAttributes} from 'create-html-element';
+import {type HTMLAttributes} from 'create-html-element';
 
-export interface Options {
+export type Options = {
 	/**
 	HTML attributes to add to the link.
 	*/
@@ -23,7 +23,7 @@ export interface Options {
 	*/
 	readonly value?: string | ((url: string) => string);
 
-}
+};
 
 /**
 Linkify URLs in a string, returns an HTML string.
