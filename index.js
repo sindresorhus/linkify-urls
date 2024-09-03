@@ -22,8 +22,9 @@ const parseValue = (value, href) => {
 // Get `<a>` element as string
 const linkify = (href, options = {}) => createHtmlElement({
 	name: 'a',
+	// First `href` is needed for the `href` attribute to be the first attribute on the `a` tag
 	attributes: {
-		href, // Set first so it appears first in the final HTML string
+		href,
 		...options.attributes,
 		href, // eslint-disable-line no-dupe-keys -- Ensures it's not overwritten
 	},
