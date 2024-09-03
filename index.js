@@ -23,8 +23,9 @@ const parseValue = (value, href) => {
 const linkify = (href, options = {}) => createHtmlElement({
 	name: 'a',
 	attributes: {
+		href, // Set first so it appears first in the final HTML string
 		...options.attributes,
-		href,
+		href, // eslint-disable-line no-dupe-keys -- Ensures it's not overwritten
 	},
 	...parseValue(options.value, href),
 });
