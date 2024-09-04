@@ -15,7 +15,7 @@ const html = dom => {
 
 for (const [name, linkify] of Object.entries({
 	linkifyUrlsToHtml,
-	linkifyUrlsToDom: string => `DocumentFragment: ${html(linkifyUrlsToDom(string))}`,
+	linkifyUrlsToDom: (...arguments_) => `DocumentFragment: ${html(linkifyUrlsToDom(...arguments_))}`,
 })) {
 	test(name + ': main', t => {
 		t.snapshot(
