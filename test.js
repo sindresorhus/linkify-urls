@@ -147,8 +147,8 @@ for (const [name, linkify] of Object.entries({
 		t.snapshot(linkify('https://github.com/scarf005/hangul-test/wiki/한글-위키-페이지 and other hangul'));
 		t.snapshot(linkify('https://www.例.jp?'));
 	});
-}
 
-test.failing('skips the trailing period', t => {
-	t.is(linkifyUrlsToHtml('Visit https://fregante.com.'), 'Visit <a href="https://fregante.com">https://fregante.com</a>.');
-});
+	test(name + ': supports trailing period', t => {
+		t.snapshot(linkify('Visit https://fregante.com.'));
+	});
+}

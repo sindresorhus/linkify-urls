@@ -20,16 +20,25 @@ const parseValue = (value, href) => {
 };
 
 // Get `<a>` element as string
-const linkify = (href, options = {}) => createHtmlElement({
-	name: 'a',
-	// First `href` is needed for the `href` attribute to be the first attribute on the `a` tag
-	attributes: {
-		href,
-		...options.attributes,
-		href, // eslint-disable-line no-dupe-keys -- Ensures it's not overwritten
-	},
-	...parseValue(options.value, href),
-});
+function linkify(href, options = {}) {
+	// The regex URL mistakenly includes a dot at the end of the URL
+	let trailingDot = '';
+	if (href.endsWith('.')) {
+		href = href.slice(0, -1);
+		trailingDot = '.';
+	}
+
+	return createHtmlElement({
+		name: 'a',
+		// First `href` is needed for the `href` attribute to be the first attribute on the `a` tag
+		attributes: {
+			href,
+			...options.attributes,
+			href, // eslint-disable-line no-dupe-keys -- Ensures it's not overwritten
+		},
+		...parseValue(options.value, href),
+	}) + trailingDot;
+}
 
 // Get DOM node from HTML
 const domify = html => document.createRange().createContextualFragment(html);
