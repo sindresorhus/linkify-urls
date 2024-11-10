@@ -24,8 +24,8 @@ function linkify(href, options = {}) {
 	// The regex URL mistakenly includes punctuation (a period or question mark) at the end of the URL
 	let punctuation = '';
 	if (/[.?]$/.test(href)) {
+		punctuation = href.slice(-1);
 		href = href.slice(0, -1);
-		punctuation = url.slice(-1);
 	}
 
 	return createHtmlElement({
