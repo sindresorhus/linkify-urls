@@ -22,7 +22,7 @@ const parseValue = (value, href) => {
 // Get `<a>` element as string
 function linkify(href, options = {}) {
 	// The URL regex mistakenly includes punctuation (a period or question mark) at the end of the URL
-	const punctuation = /[.?]$/.exec(href) ?? '';
+	const punctuation = /[.?]$/.exec(href)?.[0] ?? '';
 	if (punctuation) {
 		href = href.slice(0, -1);
 	}
