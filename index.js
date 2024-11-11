@@ -21,11 +21,10 @@ const parseValue = (value, href) => {
 
 // Get `<a>` element as string
 function linkify(href, options = {}) {
-	// The regex URL mistakenly includes a dot at the end of the URL
-	let trailingDot = '';
-	if (href.endsWith('.')) {
+	// The URL regex mistakenly includes punctuation (a period or question mark) at the end of the URL
+	const punctuation = /[.?]$/.exec(href)?.[0] ?? '';
+	if (punctuation) {
 		href = href.slice(0, -1);
-		trailingDot = '.';
 	}
 
 	return createHtmlElement({
@@ -37,7 +36,7 @@ function linkify(href, options = {}) {
 			href, // eslint-disable-line no-dupe-keys -- Ensures it's not overwritten
 		},
 		...parseValue(options.value, href),
-	}) + trailingDot;
+	}) + punctuation;
 }
 
 // Get DOM node from HTML
