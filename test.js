@@ -165,4 +165,15 @@ for (const [name, linkify] of Object.entries({
 		// IPv6 with HTTPS
 		t.snapshot(linkify('Check https://[2001:db8:85a3::8a2e:370:7334]:443/'));
 	});
+
+	test(name + ': supports hostnames with numbers', t => {
+		// Issue #48 - Hostnames with numbers should be linkified
+		t.snapshot(linkify('Check https://qa1-e2e2.company.com'));
+
+		// More examples with numbers in hostnames
+		t.snapshot(linkify('Visit https://server123.example.com'));
+		t.snapshot(linkify('API at https://api-v2.service.io'));
+		t.snapshot(linkify('Dev server https://192.168.1.1:8080'));
+		t.snapshot(linkify('S3 bucket https://s3.us-west-2.amazonaws.com'));
+	});
 }
