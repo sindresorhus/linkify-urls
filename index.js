@@ -1,4 +1,5 @@
 import createHtmlElement from 'create-html-element';
+import {parseUrl, processUrlParts} from './utilities.js';
 
 // Capture the whole URL in group 1 to keep `String#split()` support
 const urlRegex = () => (/((?<!\+)https?:\/\/(?:www\.)?(?:[-\p{Letter}\d.]+?[.@][a-zA-Z\d]{2,}|localhost|\[[0-9a-fA-F:]+(?:\.[0-9]{1,3}){0,4}\])(?:[-\w\p{Letter}.:%+~#*$!?&/=@]*?(?:,(?!\s))*?)*)/gu);
@@ -20,12 +21,8 @@ const parseValue = (value, href) => {
 };
 
 // Get `<a>` element as string
-function linkify(href, options = {}) {
-	// The URL regex mistakenly includes punctuation (a period or question mark) at the end of the URL
-	const punctuation = /[.?]$/.exec(href)?.[0] ?? '';
-	if (punctuation) {
-		href = href.slice(0, -1);
-	}
+function linkify(url, options = {}) {
+	const {href, punctuation} = parseUrl(url);
 
 	return createHtmlElement({
 		name: 'a',
@@ -57,16 +54,17 @@ export function linkifyUrlsToHtml(string, options) {
 
 export function linkifyUrlsToDom(string, options) {
 	const fragment = document.createDocumentFragment();
-	const parts = string.split(urlRegex());
 
-	for (const [index, text] of parts.entries()) {
-		// URLs are always in odd positions
-		if (index % 2 && !isTruncated(text, parts[index + 1])) {
-			fragment.append(domify(linkify(text, options)));
-		} else if (text.length > 0) {
-			fragment.append(text);
-		}
+	const renderer = {
+		link: (url, options) => domify(linkify(url, options)),
+		text: text => text,
+	};
+
+	const results = processUrlParts(string, options, renderer);
+	for (const result of results) {
+		fragment.append(result);
 	}
 
 	return fragment;
 }
+
