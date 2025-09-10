@@ -58,6 +58,18 @@ Type: `object`
 
 HTML attributes to add to the link.
 
+**Security note:** For external links, consider adding `rel: 'noreferrer'` to prevent the linked page from accessing `window.opener` and to avoid sending referrer information. This helps protect against reverse tabnabbing attacks and preserves user privacy:
+
+```js
+linkifyUrlsToHtml('Visit https://example.com', {
+	attributes: {
+		rel: 'noreferrer',
+		target: '_blank'
+	}
+});
+//=> 'Visit <a href="https://example.com" rel="noreferrer" target="_blank">https://example.com</a>'
+```
+
 ##### value
 
 Type: `string | Function`\

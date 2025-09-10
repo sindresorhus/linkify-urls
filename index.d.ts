@@ -3,6 +3,19 @@ import {type HTMLAttributes} from 'create-html-element';
 export type Options = {
 	/**
 	HTML attributes to add to the link.
+
+	Security note: For external links, consider adding `rel: 'noreferrer'` to prevent the linked page from accessing `window.opener` and to avoid sending referrer information.
+
+	@example
+	```
+	linkifyUrlsToHtml('Visit https://example.com', {
+		attributes: {
+			rel: 'noreferrer',
+			target: '_blank'
+		}
+	});
+	//=> 'Visit <a href="https://example.com" rel="noreferrer" target="_blank">https://example.com</a>'
+	```
 	*/
 	readonly attributes?: HTMLAttributes;
 
