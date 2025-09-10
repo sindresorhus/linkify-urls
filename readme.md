@@ -98,21 +98,14 @@ React component that linkifies URLs in its children.
 
 ```jsx
 import React from 'react';
-import {LinkifyUrls} from 'linkify-urls';
+import {LinkifyUrls} from 'linkify-urls/react';
 
 <LinkifyUrls attributes={{target: '_blank', class: 'link'}}>
 	Check out https://example.com for more info.
 </LinkifyUrls>
-
-// Alternative to dangerouslySetInnerHTML
-<div
-	dangerouslySetInnerHTML={{
-		__html: linkifyUrlsToHtml('Check out https://example.com', {
-			attributes: {target: '_blank'}
-		})
-	}}
-/>
 ```
+
+This approach is safer and more performant than using `dangerouslySetInnerHTML`.
 
 #### options
 

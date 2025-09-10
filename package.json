@@ -12,8 +12,14 @@
 	},
 	"type": "module",
 	"exports": {
-		"types": "./index.d.ts",
-		"default": "./index.js"
+		".": {
+			"types": "./index.d.ts",
+			"default": "./index.js"
+		},
+		"./react": {
+			"types": "./react.d.ts",
+			"default": "./react.js"
+		}
 	},
 	"sideEffects": false,
 	"engines": {
@@ -24,7 +30,10 @@
 	},
 	"files": [
 		"index.js",
-		"index.d.ts"
+		"index.d.ts",
+		"react.js",
+		"react.d.ts",
+		"utilities.js"
 	],
 	"keywords": [
 		"linkify",

@@ -1,33 +1,5 @@
 import {type HTMLAttributes} from 'create-html-element';
 
-// Local React types to avoid hard dependency on @types/react
-type ReactElement = {
-	type: string | ComponentType;
-	props: Record<string, unknown>;
-	key?: string | number | null | undefined; // eslint-disable-line @typescript-eslint/ban-types
-};
-
-type ReactPortal = {
-	type: symbol;
-	key?: string | number | null | undefined; // eslint-disable-line @typescript-eslint/ban-types
-	children: ReactNode;
-	containerInfo: unknown;
-	implementation: unknown;
-};
-
-type ReactNode =
-	| ReactElement
-	| string
-	| number
-	| bigint
-	| Iterable<ReactNode>
-	| ReactPortal
-	| boolean
-	| null // eslint-disable-line @typescript-eslint/ban-types
-	| undefined;
-
-type ComponentType<Properties = Record<string, unknown>> = (properties: Properties) => ReactNode;
-
 export type Options = {
 	/**
 	HTML attributes to add to the link.
@@ -116,23 +88,5 @@ export function linkifyUrlsToDom(
 	string: string,
 	options?: Options
 ): DocumentFragment;
-
-/**
-React component that linkifies URLs in its children.
-
-@example
-```
-import React from 'react';
-import {LinkifyUrls} from 'linkify-urls';
-
-<LinkifyUrls attributes={{target: '_blank', class: 'link'}}>
-	Check out https://example.com for more info
-</LinkifyUrls>
-```
-*/
-// eslint-disable-next-line @typescript-eslint/naming-convention
-export const LinkifyUrls: ComponentType<Options & {
-	readonly children?: ReactNode;
-}>;
 
 export {HTMLAttributes} from 'create-html-element';
