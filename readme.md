@@ -92,6 +92,28 @@ Returns a `DocumentFragment` ready to be appended in a DOM safely, like `Documen
 
 This type only works in the browser.
 
+### LinkifyUrls (React component)
+
+React component that linkifies URLs in its children.
+
+```jsx
+import React from 'react';
+import {LinkifyUrls} from 'linkify-urls';
+
+<LinkifyUrls attributes={{target: '_blank', class: 'link'}}>
+	Check out https://example.com for more info.
+</LinkifyUrls>
+
+// Alternative to dangerouslySetInnerHTML
+<div
+	dangerouslySetInnerHTML={{
+		__html: linkifyUrlsToHtml('Check out https://example.com', {
+			attributes: {target: '_blank'}
+		})
+	}}
+/>
+```
+
 #### options
 
 See [options](#options) above.

@@ -20,12 +20,8 @@ const parseValue = (value, href) => {
 };
 
 // Get `<a>` element as string
-function linkify(href, options = {}) {
-	// The URL regex mistakenly includes punctuation (a period or question mark) at the end of the URL
-	const punctuation = /[.?]$/.exec(href)?.[0] ?? '';
-	if (punctuation) {
-		href = href.slice(0, -1);
-	}
+function linkify(url, options = {}) {
+	const {href, punctuation} = parseUrl(url);
 
 	return createHtmlElement({
 		name: 'a',
@@ -46,6 +42,31 @@ const isTruncated = (url, peek) =>
 	url.endsWith('...') // `...` is a matched by the URL regex
 	|| peek.startsWith('…'); // `…` can follow the match
 
+// Extract href and punctuation from URL
+function parseUrl(url) {
+	// The URL regex mistakenly includes punctuation (a period or question mark) at the end of the URL
+	const punctuation = /[.?]$/.exec(url)?.[0] ?? '';
+	const href = punctuation ? url.slice(0, -1) : url;
+	return {href, punctuation};
+}
+
+// Shared function to process URL parts into linkified content
+function processUrlParts(string, options, renderer) {
+	const parts = string.split(urlRegex());
+	const results = [];
+
+	for (const [index, text] of parts.entries()) {
+		// URLs are always in odd positions
+		if (index % 2 && !isTruncated(text, parts[index + 1])) {
+			results.push(renderer.link(text, options, index));
+		} else if (text.length > 0) {
+			results.push(renderer.text(text));
+		}
+	}
+
+	return results;
+}
+
 export function linkifyUrlsToHtml(string, options) {
 	const replacer = (url, _, offset) =>
 		isTruncated(url, string.charAt(offset + url.length))
@@ -57,16 +78,59 @@ export function linkifyUrlsToHtml(string, options) {
 
 export function linkifyUrlsToDom(string, options) {
 	const fragment = document.createDocumentFragment();
-	const parts = string.split(urlRegex());
 
-	for (const [index, text] of parts.entries()) {
-		// URLs are always in odd positions
-		if (index % 2 && !isTruncated(text, parts[index + 1])) {
-			fragment.append(domify(linkify(text, options)));
-		} else if (text.length > 0) {
-			fragment.append(text);
-		}
+	const renderer = {
+		link: (url, options) => domify(linkify(url, options)),
+		text: text => text,
+	};
+
+	const results = processUrlParts(string, options, renderer);
+	for (const result of results) {
+		fragment.append(result);
 	}
 
 	return fragment;
+}
+
+// React component - can be imported and used directly
+export function LinkifyUrls({children, ...options}) {
+	// Import React dynamically to avoid making it a hard dependency
+	const {React} = globalThis;
+
+	if (!React) {
+		throw new Error('LinkifyUrls requires React to be available globally. Make sure React is imported in your app.');
+	}
+
+	const {useMemo} = React;
+
+	// Return non-string children as-is
+	if (typeof children !== 'string') {
+		return children;
+	}
+
+	// Convert linkified content to React elements
+	const linkifiedContent = useMemo(() => {
+		const renderer = {
+			link(url, options, index) {
+				const {href, punctuation} = parseUrl(url);
+				const linkText = options.value
+					? (typeof options.value === 'function' ? options.value(href) : options.value)
+					: href;
+
+				return [
+					React.createElement('a', {
+						key: `${index}-${href}`,
+						href,
+						...options.attributes,
+					}, linkText),
+					punctuation,
+				];
+			},
+			text: text => text,
+		};
+
+		return processUrlParts(children, options, renderer).flat();
+	}, [children, options]);
+
+	return React.createElement(React.Fragment, null, ...linkifiedContent);
 }
