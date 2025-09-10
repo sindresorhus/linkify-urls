@@ -151,4 +151,18 @@ for (const [name, linkify] of Object.entries({
 	test(name + ': supports trailing period', t => {
 		t.snapshot(linkify('Visit https://fregante.com.'));
 	});
+
+	test(name + ': supports IPv6 addresses', t => {
+		// IPv6 loopback address
+		t.snapshot(linkify('🚀 Playground ready at http://[::1]:5000/graphql'));
+
+		// IPv6 unspecified address (any address)
+		t.snapshot(linkify('🚀 Playground ready at http://[::]:5000/graphql'));
+
+		// Regular IPv6 address
+		t.snapshot(linkify('Visit http://[2001:db8::1]:8080/path'));
+
+		// IPv6 with HTTPS
+		t.snapshot(linkify('Check https://[2001:db8:85a3::8a2e:370:7334]:443/'));
+	});
 }
