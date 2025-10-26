@@ -176,4 +176,20 @@ for (const [name, linkify] of Object.entries({
 		t.snapshot(linkify('Dev server https://192.168.1.1:8080'));
 		t.snapshot(linkify('S3 bucket https://s3.us-west-2.amazonaws.com'));
 	});
+
+	test(name + ': current React usage limitation', t => {
+		// Issue #38 - Current React usage requires dangerouslySetInnerHTML
+		const result = linkify('Check out https://example.com for more info');
+		const expected = name === 'linkifyUrlsToHtml'
+			? 'Check out <a href="https://example.com">https://example.com</a> for more info'
+			: 'DocumentFragment: Check out <a href="https://example.com">https://example.com</a> for more info';
+
+		// This shows what React users currently have to do - use dangerouslySetInnerHTML
+		t.is(result, expected);
+
+		// This test documents the current limitation that React can't use this directly
+		// without dangerouslySetInnerHTML due to the HTML string output
+		t.snapshot(result);
+	});
 }
+
